@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		actionBarVisible="false" title="Settings">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label fontSize="36" horizontalCenter="0" text="Settings" verticalCenter="0"/>
+	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
+</s:View>
