@@ -42,4 +42,9 @@
 	<s:TextInput id="leftValue" left="68" bottom="251" width="58" height="58" enabled="false"
 				 fontSize="13" fontWeight="normal" text="{leftSlider.value}" textAlign="center"/>
 	
+	<s:Panel top="0" width="400" height="400" backgroundColor="#000000" horizontalCenter="0"
+			 title="Panel">
+		
+	</s:Panel>
+	
 </s:View>
