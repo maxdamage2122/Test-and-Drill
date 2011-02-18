@@ -43,7 +43,7 @@
 				 fontSize="13" fontWeight="normal" text="{leftSlider.value}" textAlign="center"/>
 	
 	<s:Panel top="0" width="400" height="400" backgroundColor="#000000" horizontalCenter="0"
-			 title="Panel">
+			 title="Panel" skinClass="components.PanelSkin">
 		<components:FlexView3D id="object3DScene" width="100%" height="100%"/>
 	</s:Panel>
 	
