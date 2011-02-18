@@ -54,6 +54,7 @@ package components
 			cow = event.loader.handle as ObjectContainer3D;
 			cow.scale(100);
 			cow.moveDown(1);
+			randomize();
 			view.scene.addChild(cow);
 		}
 		
@@ -66,6 +67,12 @@ package components
 		{			
 			//Render View
 			view.render();
+		}
+		
+		public function randomize():void
+		{
+			cow.z=Math.floor(Math.random() * 4100) + 1;
+			cow.rotationY=Math.floor(Math.random() * 360) + 1;
 		}
 	}
 }
