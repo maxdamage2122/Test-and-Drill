@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:components="spark.components.*"
+		 width="420">
+	
+	<fx:Script>
+		<![CDATA[
+			import tv.digitalretro.events.MessageBoxEvent;
+			
+			import mx.managers.PopUpManager;
+			
+			public static const MB_OK:String		= "ST_OK";
+			public static const MB_OKCANCEL:String	= "ST_OKCANCEL";
+			public static const MB_YESNO:String		= "ST_YESNO";
+			
+			public static const IC_ADD:String		= "tv/digitalretro/assets/ic_add.png";
+			public static const IC_ALERT:String		= "tv/digitalretro/assets/ic_alert.png";
+			public static const IC_CANCEL:String	= "tv/digitalretro/assets/ic_cancel.png";
+			public static const IC_CLEAR:String		= "tv/digitalretro/assets/ic_clear.png";
+			public static const IC_CLOSE:String		= "tv/digitalretro/assets/ic_close.png";
+			public static const IC_DELETE:String	= "tv/digitalretro/assets/ic_delete.png";
+			public static const IC_EDIT:String		= "tv/digitalretro/assets/ic_edit.png";
+			public static const IC_HELP:String		= "tv/digitalretro/assets/ic_help.png";
+			public static const IC_INFO:String 		= "tv/digitalretro/assets/ic_info.png";
+			public static const IC_MORE:String		= "tv/digitalretro/assets/ic_more.png";
+			public static const IC_SAVE:String		= "tv/digitalretro/assets/ic_save.png";
+			
+			[Bindable]
+			private var _type:String	= MB_OK;
+			
+			[Bindable]
+			public function get type():String
+			{
+				return _type;
+			}
+			
+			public function set type(newType:String):void 
+			{
+				if (newType == MB_OK)			{	_type	= MB_OK;		}
+				else if (newType== MB_OKCANCEL)	{	_type	= MB_OKCANCEL;	}
+				else if (newType== MB_YESNO)	{	_type	= MB_YESNO;		}
+				
+				currentState	= _type;
+			}
+			
+			[Bindable]
+			public var icon:String		= IC_INFO;
+			
+			[Bindable]
+			public var title:String 	= "Information";
+			
+			[Bindable]
+			public var message:String	= "Default Message";
+			
+			public static function show(parent:DisplayObject, type:String, icon:String, title:String, message:String):MessageBox
+			{
+				var msgBox:MessageBox = new MessageBox();
+				
+				msgBox.type		= type;
+				msgBox.icon		= icon;
+				msgBox.title	= title;
+				msgBox.message	= message;
+				
+				PopUpManager.addPopUp(msgBox, parent, true);
+				PopUpManager.centerPopUp(msgBox);
+				return msgBox;
+			}
+			
+			protected function okayBtn_clickHandler(event:MouseEvent):void
+			{
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_OK);
+				dispatchEvent(dpe);
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function cancelBtn_clickHandler(event:MouseEvent):void
+			{
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_CANCEL);
+				dispatchEvent(dpe);
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function yesBtn_clickHandler(event:MouseEvent):void
+			{
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_YES);
+				dispatchEvent(dpe);
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function noBtn_clickHandler(event:MouseEvent):void
+			{
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_NO);
+				dispatchEvent(dpe);
+				PopUpManager.removePopUp(this);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="ST_OK"/>
+		<s:State name="ST_OKCANCEL"/>
+		<s:State name="ST_YESNO"/>
+	</s:states>
+	
+	<s:BorderContainer backgroundColor="0x333333" width="100%" borderColor="0xffffff" borderWeight="4" cornerRadius="10">
+		<s:VGroup width="100%">
+			<s:HGroup width="100%" gap="15" paddingBottom="10" paddingLeft="15" paddingRight="15" paddingTop="15">
+				<s:Image source="{this.icon}"/>
+				<s:Label width="100%" fontSize="32" paddingTop="12" text="{this.title}"/>
+			</s:HGroup>
+			<s:Line width="100%">
+				<s:stroke>
+					<s:SolidColorStroke color="0x5b5b5b" weight="2"/>
+				</s:stroke>
+			</s:Line>
+			<s:Label maxDisplayedLines="6" maxHeight="300" width="100%" fontSize="24" fontWeight="normal" paddingTop="12" paddingBottom="12" paddingLeft="15" paddingRight="15" text="{this.message}"/>
+			<s:Group width="100%" height="70">
+				<s:Image source="tv/digitalretro/assets/button_gloss.png"/>
+				<s:HGroup bottom="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" paddingLeft="10" paddingRight="10">
+					<s:Button id="okayBtn" width.ST_OK="100%" width.ST_OKCANCEL="50%" height="50" label="OK" includeIn="ST_OK,ST_OKCANCEL"
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="okayBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+					<s:Button id="cancelBtn" width="50%" height="50" label="Cancel" includeIn="ST_OKCANCEL"
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="cancelBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+					<s:Button id="yesBtn" width="50%" height="50" label="Yes" includeIn="ST_YESNO"
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="yesBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+					<s:Button id="noBtn" width="50%" height="50" label="No" includeIn="ST_YESNO"
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="noBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+				</s:HGroup>
+			</s:Group>
+		</s:VGroup>
+	</s:BorderContainer>
+	
+</s:Group>
