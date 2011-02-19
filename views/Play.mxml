@@ -25,7 +25,7 @@
 			   liveDragging="true" maximum="180"
 			   minimum="-180" skinClass="components.VSliderSkin"/>
 	
-	<s:Button right="10" bottom="10" width="121" label="Submit" fontSize="22" click="navigator.pushView(CheckGuess)"/>
+	<s:Button right="10" bottom="10" width="121" label="Submit" fontSize="22"/>
 	<s:TextInput id="rightValue" right="68" bottom="251" width="58" height="58" borderVisible="true"
 				 enabled="false" fontSize="18"
 				 fontWeight="normal" text="{Math.abs(rightSlider.value)}" textAlign="center"/>
