@@ -5,6 +5,7 @@
 	<fx:Script>
 		<![CDATA[
 			import spark.events.TextOperationEvent;
+			
 			import tv.digitalretro.components.MessageBox;
 			import tv.digitalretro.events.MessageBoxEvent;
 			
@@ -16,8 +17,16 @@
 			
 			protected function okBtn_clickHandler(event:MouseEvent):void
 			{
-				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "SCORE", "Display scores here");
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "SCORE", getScoresString());
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+			}
+			
+			private function getScoresString():String
+			{
+				var scores:String = "";
+				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",away3dScene.angle," degrees.\n\n",
+									"Guess:\n",leftSlider.value," yards at ",rightSlider.value," degrees.");
+				return scores;
 			}
 			
 			private function msgBox_onOK(event:MessageBoxEvent):void
