@@ -9,6 +9,8 @@
 			import tv.digitalretro.components.MessageBox;
 			import tv.digitalretro.events.MessageBoxEvent;
 			
+			protected var round:int = 1;
+			
 			protected function rightValue_changeHandler(event:TextOperationEvent):void
 			{
 				if (int(rightValue.text) != rightSlider.value)
