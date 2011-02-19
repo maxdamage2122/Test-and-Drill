@@ -56,6 +56,7 @@ package components
 			cow = event.loader.handle as ObjectContainer3D;
 			cow.scale(100);
 			cow.moveDown(1);
+			cow.yaw(90);
 			randomize();
 			view.scene.addChild(cow);
 		}
