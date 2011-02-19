@@ -19,8 +19,14 @@
 			
 			protected function okBtn_clickHandler(event:MouseEvent):void
 			{
-				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "SCORE", getScoresString());
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, getRoundString(), getScoresString());
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+			}
+			
+			private function getRoundString():String
+			{
+				var round:String = "";
+				return round.concat("Round ",this.round," Scores");
 			}
 			
 			private function getScoresString():String
