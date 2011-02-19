@@ -14,6 +14,8 @@ package components
 	{
 		protected var cow:ObjectContainer3D;
 		protected var view:View3D;
+		public var distance:int;
+		public var angle:int;
 		
 		public function Away3dScene() 
 		{
@@ -71,8 +73,11 @@ package components
 		
 		public function randomize():void
 		{
-			cow.z=Math.floor(Math.random() * 4100) + 1;
-			cow.rotationY=Math.floor(Math.random() * 360) + 1;
+			distance=Math.floor(Math.random() * 4100) + 1;
+			angle=Math.floor(Math.random() * 360) + 1;
+			
+			cow.z=distance;
+			cow.rotationY=angle;
 		}
 	}
 }
