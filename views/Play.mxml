@@ -33,7 +33,17 @@
 			
 			private function msgBox_onOK(event:MessageBoxEvent):void
 			{
-				away3dScene.randomize();
+				if (round < 10)
+				{
+					round++;
+					away3dScene.randomize();
+				}
+				else
+				{
+					var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "CONGRATULATIONS", "You have completed this level.");
+					msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+					round=0;
+				}
 			}
 			
 		]]>
