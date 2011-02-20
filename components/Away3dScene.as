@@ -56,7 +56,6 @@ package components
 			cow = event.loader.handle as ObjectContainer3D;
 			cow.scale(100);
 			cow.moveDown(1);
-			cow.yaw(90);
 			randomize();
 			view.scene.addChild(cow);
 		}
@@ -78,7 +77,7 @@ package components
 			angle=Math.floor(Math.random() * 360) + 1;
 			
 			cow.z=distance;
-			cow.rotationY=angle;
+			cow.rotationY=angle+90;
 		}
 	}
 }
