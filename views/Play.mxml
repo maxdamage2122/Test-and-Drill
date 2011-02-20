@@ -52,6 +52,17 @@
 				}
 			}
 			
+			private function backClicked():void
+			{
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_YESNO, MessageBox.IC_ALERT, "WARNING", "All progress during this level will be lost.\n\nAre you sure you want to quit?");
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_YES, backClicked_onYes);
+				//msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, msgBox_onNo);
+			}
+			
+			private function backClicked_onYes(event:MessageBoxEvent):void
+			{
+				navigator.popView();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -73,7 +84,7 @@
 			  buttonDown="rightSlider.value=rightSlider.value+1" autoRepeat="true" fontSize="24" fontWeight="bold"/>
 	<s:Button id="rightMinus" right="68" bottom="111" width="58" height="58" label="-"
 			  buttonDown="rightSlider.value=rightSlider.value-1" autoRepeat="true"/>
-	<s:Button left="10" bottom="10" width="121" label="Back" click="navigator.popView()"
+	<s:Button left="10" bottom="10" width="121" label="Back" click="backClicked()"
 			  fontSize="22"/>
 	<s:Button id="leftPlus" left="68" bottom="181" width="58" height="58" label="+"
 			  buttonDown="leftSlider.value=leftSlider.value+1" autoRepeat="true"/>
