@@ -5,4 +5,10 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			//Block native 'back' key behavior.
+			override protected function backKeyHandler():void{}
+		]]>
+	</fx:Script>
 </s:MobileApplication>
