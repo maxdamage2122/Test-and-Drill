@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		actionBarVisible="false" overlayControls="true" title="Play" clipAndEnableScrolling="true" xmlns:components="components.*">
+		actionBarVisible="false" overlayControls="true" title="Play" clipAndEnableScrolling="true" xmlns:components="components.*"
+		viewActivate="viewActivateHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			
 			import spark.events.TextOperationEvent;
 			
 			import tv.digitalretro.components.MessageBox;
@@ -63,6 +66,12 @@
 			{
 				navigator.popView();
 			}
+
+			protected function viewActivateHandler(event:FlexEvent):void
+			{
+				away3dScene.loadModel();
+			}
+
 		]]>
 	</fx:Script>
 	<fx:Declarations>

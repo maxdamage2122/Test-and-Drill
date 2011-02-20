@@ -41,11 +41,10 @@ package components
 		
 		protected function onAddedToStage(event:Event):void 
 		{
-			loadModel();
 			startRendering();
 		}
 		
-		protected function loadModel():void 
+		public function loadModel():void
 		{
 			var loader3D:Loader3D = Collada.load("models/cow.dae");
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
