@@ -115,14 +115,14 @@
 								 fontWeight="normal" text="{leftSlider.value}" textAlign="center"/>
 					<mx:Spacer width="100%" height="2%"/>
 					<s:Button id="leftPlus" width="100%" height="32%" label="+" autoRepeat="true" minHeight="0"
-							  buttonDown="leftSlider.value=leftSlider.value+1" cornerRadius="2"/>
+							  buttonDown="leftSlider.value=leftSlider.value+1" cornerRadius="2" skinClass="components.ButtonSkin"/>
 					<mx:Spacer width="100%" height="2%"/>
 					<s:Button id="leftMinus" width="100%" height="32%" label="-" autoRepeat="true" minHeight="0"
-							  buttonDown="leftSlider.value=leftSlider.value-1"/>
+							  buttonDown="leftSlider.value=leftSlider.value-1" skinClass="components.ButtonSkin"/>
 				</s:VGroup>
 			</s:HGroup>
 			<mx:Spacer width="100%" height="2%"/>
-			<s:Button width="100%" height="15%" label="Back" click="backClicked()" minHeight="0"/>
+			<s:Button width="100%" height="15%" minHeight="0" label="Back" click="backClicked()" skinClass="components.ButtonSkin"/>
 		</s:VGroup>
 	</s:HGroup>
 	
