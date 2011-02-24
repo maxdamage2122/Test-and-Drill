@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false" tabBarVisible="true" title="Home">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button id="play" label="Play" click="navigator.pushView(Play)" horizontalCenter="0"
-			  verticalCenter="-180"/>
-	<s:Button id="viewScores" label="View Scores" click="navigator.pushView(Scores)"
-			  horizontalCenter="0" verticalCenter="-60"/>
-	<s:Button id="settings" label="Settings" click="navigator.pushView(Settings)"
-			  horizontalCenter="0" verticalCenter="60"/>
-	<s:Button id="exit" height="75" label="Exit" click="NativeApplication.nativeApplication.exit()"
-			  horizontalCenter="0" verticalCenter="180"/>
-	
+	<s:VGroup y="0" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
+		<mx:Spacer width="100%" height="4%"/>
+		<s:Button id="play" height="20%" label="Play" click="navigator.pushView(Play)"  minHeight="0" />
+		<mx:Spacer width="100%" height="4%"/>
+		<s:Button id="viewScores" height="20%" label="View Scores" click="navigator.pushView(Scores)" minHeight="0"/>
+		<mx:Spacer width="100%" height="4%"/>
+		<s:Button id="settings" height="20%" label="Settings" click="navigator.pushView(Settings)" minHeight="0"/>
+		<mx:Spacer width="100%" height="4%"/>
+		<s:Button id="exit" height="20%" label="Exit" click="NativeApplication.nativeApplication.exit()" minHeight="0"/>
+	</s:VGroup>
 </s:View>
