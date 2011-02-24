@@ -6,14 +6,18 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VGroup y="0" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
+	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
 		<mx:Spacer width="100%" height="4%"/>
-		<s:Button id="play" height="20%" label="Play" click="navigator.pushView(Play)"  minHeight="0" />
+		<s:Button id="play" width="12%" height="20%" minWidth="95" minHeight="0" label="Play"
+				  click="navigator.pushView(Play)"/>
 		<mx:Spacer width="100%" height="4%"/>
-		<s:Button id="viewScores" height="20%" label="View Scores" click="navigator.pushView(Scores)" minHeight="0"/>
+		<s:Button id="viewScores" width="24%" height="20%" minWidth="190" minHeight="0"
+				  label="View Scores" click="navigator.pushView(Scores)"/>
 		<mx:Spacer width="100%" height="4%"/>
-		<s:Button id="settings" height="20%" label="Settings" click="navigator.pushView(Settings)" minHeight="0"/>
+		<s:Button id="settings" width="18%" height="20%" minWidth="140" minHeight="0"
+				  label="Settings" click="navigator.pushView(Settings)"/>
 		<mx:Spacer width="100%" height="4%"/>
-		<s:Button id="exit" height="20%" label="Exit" click="NativeApplication.nativeApplication.exit()" minHeight="0"/>
+		<s:Button id="exit" width="12%" height="20%" minWidth="90" minHeight="0" label="Exit"
+				  click="NativeApplication.nativeApplication.exit()"/>
 	</s:VGroup>
 </s:View>
