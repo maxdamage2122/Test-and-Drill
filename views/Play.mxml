@@ -109,7 +109,8 @@
 				</s:VGroup>
 			</s:HGroup>
 			<mx:Spacer width="100%" height="2%"/>
-			<s:Button width="100%" height="15%" minHeight="0" label="Back" click="backClicked()" skinClass="components.ButtonSkin"/>
+			<s:Button width="100%" height="15%" minHeight="0" label="Back" click="backClicked()"
+					  fontSize="18" skinClass="components.ButtonSkin"/>
 		</s:VGroup>
 	</s:HGroup>
 	
@@ -133,7 +134,9 @@
 						   minimum="-180" skinClass="components.VSliderSkin"/>
 			</s:HGroup>
 			<mx:Spacer width="100%" height="2%"/>
-			<s:Button width="100%" height="15%" minHeight="0" label="Submit" click="okBtn_clickHandler(event)" skinClass="components.ButtonSkin"/>
+			<s:Button width="100%" height="15%" minHeight="0" label="Submit"
+					  click="okBtn_clickHandler(event)" fontSize="18"
+					  skinClass="components.ButtonSkin"/>
 		</s:VGroup>
 	</s:HGroup>
 
