@@ -26,6 +26,7 @@
 			{
 				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, getRoundString(), getScoresString());
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+				away3dScene.loadModel();
 			}
 			
 			private function getRoundString():String
@@ -47,7 +48,6 @@
 				if (round < 10)
 				{
 					round++;
-					away3dScene.randomize();
 				}
 				else
 				{

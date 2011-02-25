@@ -12,7 +12,13 @@ package components
 	
 	public class Away3dScene extends UIComponent
 	{
-		protected var cow:ObjectContainer3D;
+		protected var models:Array = [
+			["cow.dae", 100, 1, 90],
+			["sailboat.dae", 60, 2.5, 180],
+			["speedboat.dae", 8, 8, 90]
+		];
+		protected var curModel:uint;
+		protected var ship:ObjectContainer3D;
 		protected var view:View3D;
 		public var distance:int;
 		public var angle:int;
@@ -46,17 +52,20 @@ package components
 		
 		public function loadModel():void
 		{
-			var loader3D:Loader3D = Collada.load("models/cow.dae");
+			curModel = Math.floor(Math.random()*3);
+			var loader3D:Loader3D = Collada.load("models/"+models[curModel][0]);
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
 		}
 		
 		protected function onModelLoadSuccess(event:Loader3DEvent):void 
 		{			
-			cow = event.loader.handle as ObjectContainer3D;
-			cow.scale(100);
-			cow.moveDown(1);
+			if (ship != null)
+				view.scene.removeChild(ship);
+			ship = event.loader.handle as ObjectContainer3D;
+			ship.scale(models[curModel][1]);
+			ship.moveDown(models[curModel][2]);
 			randomize();
-			view.scene.addChild(cow);
+			view.scene.addChild(ship);
 		}
 		
 		protected function startRendering():void 
@@ -75,8 +84,8 @@ package components
 			distance=Math.floor(Math.random() * 4100) + 1;
 			angle=Math.floor(Math.random() * 360) + 1;
 			
-			cow.z=distance;
-			cow.rotationY=angle+90;
+			ship.z=distance;
+			ship.rotationY=angle+models[curModel][3];
 		}
 	}
 }
