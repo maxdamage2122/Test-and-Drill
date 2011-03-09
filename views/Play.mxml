@@ -15,6 +15,8 @@
 			import tv.digitalretro.events.MessageBoxEvent;
 			
 			protected var round:int = 1;
+			protected var levelTime:int = 60;
+			protected var myTimer:Timer = new Timer(1000,levelTime);
 			
 			protected function rightValue_changeHandler(event:TextOperationEvent):void
 			{
@@ -26,7 +28,9 @@
 			{
 				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, getRoundString(), getScoresString());
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+				myTimer.stop();
 				away3dScene.loadModel();
+				
 			}
 			
 			private function getRoundString():String
@@ -48,30 +52,59 @@
 				if (round < 10)
 				{
 					round++;
+					myTimer.start();
 				}
 				else
 				{
 					var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "CONGRATULATIONS", "You have completed this level.");
 					msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
 					round=0;
+					myTimer.reset();
+					levelTime=60;
 				}
 			}
 			
 			private function backClicked():void
 			{
+				myTimer.stop();
 				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_YESNO, MessageBox.IC_ALERT, "WARNING", "All progress during this level will be lost.\n\nAre you sure you want to quit?");
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_YES, backClicked_onYes);
-				//msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, msgBox_onNo);
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, msgBox_onNo);
 			}
 			
 			private function backClicked_onYes(event:MessageBoxEvent):void
 			{
 				navigator.popView();
 			}
+			
+			private function msgBox_onNo(event:MessageBoxEvent):void
+			{
+				myTimer.start();
+			}
 
 			protected function viewActivateHandler(event:FlexEvent):void
 			{
 				away3dScene.loadModel();
+				levelTimer();
+				
+			}
+			protected function levelTimer():void
+			{
+				
+				var count:Number = 60;
+				levelTime=60;
+				
+				//var myTimer:Timer = new Timer(1000,count);
+				
+				myTimer.addEventListener(TimerEvent.TIMER, countdown);
+				
+				myTimer.start();
+				
+				function countdown(event:TimerEvent):void {
+					levelTime--;
+					timerValue.text=String(levelTime);
+				}
+				
 			}
 
 		]]>
@@ -92,7 +125,11 @@
 	<s:HGroup x="0" y="0" width="15.7%" height="100%" gap="0">
 		<mx:Spacer width="5%" height="100%"/>
 		<s:VGroup width="90%" height="100%" gap="0">
-			<mx:Spacer width="100%" height="31%"/>
+			<mx:Spacer width="100%" height="6%"/>
+			<s:TextInput id="timerValue" width="100%" height="10%" enabled="false" fontSize="13"
+						 fontWeight="normal" text="{Math.abs(levelTime)}" textAlign="center"/>
+			<mx:Spacer width="100%" height="15%"/>
+			
 			<s:HGroup width="100%" height="50%" gap="0">
 				<s:VSlider id="leftSlider" width="48%" height="100%" liveDragging="true" maximum="10000"
 						   minimum="10" skinClass="components.VSliderSkin"/>
