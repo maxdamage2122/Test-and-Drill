@@ -6,11 +6,14 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import tv.digitalretro.events.MessageBoxEvent;
-			
 			import mx.managers.PopUpManager;
 			
+			import spark.events.TextOperationEvent;
+			
+			import tv.digitalretro.events.MessageBoxEvent;
+			
 			public static const MB_OK:String		= "ST_OK";
+			public static const MB_ENTER:String		= "ST_ENTER";
 			public static const MB_OKCANCEL:String	= "ST_OKCANCEL";
 			public static const MB_YESNO:String		= "ST_YESNO";
 			
@@ -29,6 +32,7 @@
 			[Bindable]
 			private var _type:String	= MB_OK;
 			
+			
 			[Bindable]
 			public function get type():String
 			{
@@ -40,6 +44,7 @@
 				if (newType == MB_OK)			{	_type	= MB_OK;		}
 				else if (newType== MB_OKCANCEL)	{	_type	= MB_OKCANCEL;	}
 				else if (newType== MB_YESNO)	{	_type	= MB_YESNO;		}
+				else if (newType== MB_ENTER)	{	_type	= MB_ENTER;	}
 				
 				currentState	= _type;
 			}
@@ -65,6 +70,13 @@
 				PopUpManager.addPopUp(msgBox, parent, true);
 				PopUpManager.centerPopUp(msgBox);
 				return msgBox;
+			}
+			
+			protected function enterBtn_clickHandler(event:MouseEvent):void
+			{
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_ENTER);
+				dispatchEvent(dpe);
+				PopUpManager.removePopUp(this);
 			}
 			
 			protected function okayBtn_clickHandler(event:MouseEvent):void
@@ -100,6 +112,7 @@
 	
 	<s:states>
 		<s:State name="ST_OK"/>
+		<s:State name="ST_ENTER"/>
 		<s:State name="ST_OKCANCEL"/>
 		<s:State name="ST_YESNO"/>
 	</s:states>
@@ -116,9 +129,14 @@
 				</s:stroke>
 			</s:Line>
 			<s:Label maxDisplayedLines="6" maxHeight="300" width="100%" fontSize="24" fontWeight="normal" paddingTop="12" paddingBottom="12" paddingLeft="15" paddingRight="15" text="{this.message}"/>
+			<s:TextInput id="inputValue" width="100%" height="10%" enabled="true" fontSize="13"
+						 fontWeight="normal" text="Enter Name" textAlign="center" includeIn="ST_ENTER"/>
+			
 			<s:Group width="100%" height="70">
 				<s:Image source="tv/digitalretro/assets/button_gloss.png"/>
 				<s:HGroup bottom="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" paddingLeft="10" paddingRight="10">
+					<s:Button id="enterBtn" width="100%" height="50" label="ENTER" includeIn="ST_ENTER" 
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="enterBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
 					<s:Button id="okayBtn" width.ST_OK="100%" width.ST_OKCANCEL="50%" height="50" label="OK" includeIn="ST_OK,ST_OKCANCEL"
 							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="okayBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
 					<s:Button id="cancelBtn" width="50%" height="50" label="Cancel" includeIn="ST_OKCANCEL"
