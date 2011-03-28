@@ -13,8 +13,19 @@
 			
 			import tv.digitalretro.components.MessageBox;
 			import tv.digitalretro.events.MessageBoxEvent;
+			import flash.events.IOErrorEvent;   
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var playername:String;
+			private var file:File;
+			private var fileStream:FileStream;
+			private var fileName:String = "level1.txt";
+			private var directory:String = "leaderboards";
 			
 			protected var round:int = 1;
+			protected var level:int = 1;
+			protected var score:int = 0;
 			protected var levelTime:int = 60;
 			protected var myTimer:Timer = new Timer(1000,levelTime);
 			
@@ -32,6 +43,45 @@
 				away3dScene.loadModel();
 				
 			}
+			private function save():void
+			{
+				// Create file object (resolve user's documents directory, add own directory and file name)
+				file = File.documentsDirectory.resolvePath(directory + "\\" + fileName);
+				// FileStream for writing the file
+				fileStream = new FileStream();
+				// Open the file in write mode
+				fileStream.open(file, FileMode.WRITE);
+				// Write the ArrayCollection object of persons to the file
+				fileStream.writeObject(playername) as String;
+				fileStream.writeInt(score);
+				// Close FileStream
+				fileStream.close();
+			}
+			private function read():void
+			{
+				// Get hte correct path
+				file = File.documentsDirectory.resolvePath(directory + "\\" + fileName);
+				
+				// read the file if it exists
+				if(file.exists)
+				{
+					// FileStream for reading the file
+					fileStream = new FileStream();
+					// Open the file in read mode
+					fileStream.open(file, FileMode.READ);
+					// Read the ArrayCollection object of persons from the file
+					playername = fileStream.readObject() as String;
+					// Close the FileStream
+					fileStream.close();
+				}
+				else
+				{
+					// some sample data + save if file does not exist
+					playername="Man";
+					score=0;
+					save();
+				}
+			}
 			
 			private function getRoundString():String
 			{
@@ -42,13 +92,31 @@
 			private function getScoresString():String
 			{
 				var scores:String = "";
-				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",away3dScene.angle," degrees.\n\n",
-									"Guess:\n",leftSlider.value," yards at ",rightSlider.value," degrees.");
+				// used for testing
+				var temp1:String = "";
+				var temp2:String = "";
+				if ((leftSlider.value<(away3dScene.distance+(away3dScene.distance*0.05)))&&(leftSlider.value>(away3dScene.distance-(away3dScene.distance*0.05))))
+					temp1="yes";
+				if ((rightSlider.value<(away3dScene.angle+5))&&(rightSlider.value>(away3dScene.angle-5)))
+					temp2="yes";
+				
+				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",away3dScene.angle," degrees.",temp1,"\n\n",
+									"Guess:\n",leftSlider.value," yards at ",rightSlider.value," degrees.",temp2);
 				return scores;
+			}
+			private function getLevelScoreString():String
+			{
+				var levelScore:String = "";
+				levelScore=levelScore.concat("Your score for Level ",level," was ",score,"\n\n","Enter your name to record your score on the leaderboard.");
+				return levelScore;
 			}
 			
 			private function msgBox_onOK(event:MessageBoxEvent):void
 			{
+				if ((leftSlider.value<(away3dScene.distance+(away3dScene.distance*0.05)))&&(leftSlider.value>(away3dScene.distance-(away3dScene.distance*0.05))))
+					score++;
+				if ((rightSlider.value<(away3dScene.angle+5))&&(rightSlider.value>(away3dScene.angle-5)))
+					score++;
 				if (round < 10)
 				{
 					round++;
@@ -57,11 +125,25 @@
 				else
 				{
 					var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "CONGRATULATIONS", "You have completed this level.");
-					msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
+					msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onEndOK);
 					round=0;
+					score+=levelTime;
 					myTimer.reset();
 					levelTime=60;
+					
 				}
+			}
+			private function msgBox_onEndOK(event:MessageBoxEvent):void
+			{
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_ENTER, MessageBox.IC_SAVE, "LEADERBOARD", getLevelScoreString());
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_ENTER, msgBox_onEnter);
+				
+			}
+			private function msgBox_onEnter(event:MessageBoxEvent):void
+			{
+				save();
+				level++;
+				score=0;
 			}
 			
 			private function backClicked():void
@@ -101,8 +183,11 @@
 				myTimer.start();
 				
 				function countdown(event:TimerEvent):void {
-					levelTime--;
+					if (levelTime!=0){
+						levelTime--;
 					timerValue.text=String(levelTime);
+					}
+					
 				}
 				
 			}
@@ -127,7 +212,7 @@
 		<s:VGroup width="90%" height="100%" gap="0">
 			<mx:Spacer width="100%" height="6%"/>
 			<s:TextInput id="timerValue" width="100%" height="10%" enabled="false" fontSize="13"
-						 fontWeight="normal" text="{Math.abs(levelTime)}" textAlign="center"/>
+						 fontWeight="normal" text="" textAlign="center"/>
 			<mx:Spacer width="100%" height="15%"/>
 			
 			<s:HGroup width="100%" height="50%" gap="0">

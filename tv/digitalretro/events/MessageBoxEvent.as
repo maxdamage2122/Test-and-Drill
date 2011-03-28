@@ -4,6 +4,7 @@ package tv.digitalretro.events
 	
 	public class MessageBoxEvent extends Event
 	{
+		public static const MESSAGEBOX_ENTER:String		= 'messageBoxENTER';
 		public static const MESSAGEBOX_OK:String 		= 'messageBoxOK';
 		public static const MESSAGEBOX_CANCEL:String 	= 'messageBoxCANCEL';
 		public static const MESSAGEBOX_YES:String 		= 'messageBoxYES';
