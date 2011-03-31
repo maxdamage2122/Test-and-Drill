@@ -74,35 +74,35 @@
 			
 			protected function enterBtn_clickHandler(event:MouseEvent):void
 			{
-				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_ENTER);
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_ENTER, inputValue.text);
 				dispatchEvent(dpe);
 				PopUpManager.removePopUp(this);
 			}
 			
 			protected function okayBtn_clickHandler(event:MouseEvent):void
 			{
-				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_OK);
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_OK, "");
 				dispatchEvent(dpe);
 				PopUpManager.removePopUp(this);
 			}
 			
 			protected function cancelBtn_clickHandler(event:MouseEvent):void
 			{
-				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_CANCEL);
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_CANCEL, "");
 				dispatchEvent(dpe);
 				PopUpManager.removePopUp(this);
 			}
 			
 			protected function yesBtn_clickHandler(event:MouseEvent):void
 			{
-				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_YES);
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_YES, "");
 				dispatchEvent(dpe);
 				PopUpManager.removePopUp(this);
 			}
 			
 			protected function noBtn_clickHandler(event:MouseEvent):void
 			{
-				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_NO);
+				var dpe:MessageBoxEvent = new MessageBoxEvent(MessageBoxEvent.MESSAGEBOX_NO, "");
 				dispatchEvent(dpe);
 				PopUpManager.removePopUp(this);
 			}

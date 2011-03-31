@@ -10,9 +10,15 @@ package tv.digitalretro.events
 		public static const MESSAGEBOX_YES:String 		= 'messageBoxYES';
 		public static const MESSAGEBOX_NO:String 		= 'messageBoxNO';
 		
-		public function MessageBoxEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		public var message:String;
+	
+		public function MessageBoxEvent(type:String, msg:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
+			if (type=='messageBoxENTER')
+			{
+				message=msg;
+			}
 		}
 	}
 }
