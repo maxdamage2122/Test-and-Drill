@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		actionBarVisible="false" title="Scores">
+		xmlns:components="components.*"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		actionBarVisible="false" title="Scores"
+		viewActivate="viewActivateHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private var playername:String;
+			private var file:File;
+			private var fileStream:FileStream;
+			private var fileName:String = "level1.txt";
+			private var directory:String = "leaderboards";
+			private var score:int;
+			private function read():void
+			{
+				// Get hte correct path
+				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
+				
+				// read the file if it exists
+				if(file.exists)
+				{
+					// FileStream for reading the file
+					fileStream = new FileStream();
+					// Open the file in read mode
+					fileStream.open(file, FileMode.READ);
+					// Read the scores from the file
+					playername = fileStream.readObject() as String;
+					score= fileStream.readInt();
+					// Close the FileStream
+					fileStream.close();
+				}
+				else
+				{
+					// some sample data + save if file does not exist
+					playername="No data";
+					score=0;
+					
+				}
+			}
+			public function getPlayerName ():void
+			{
+				playerName.text=playername;
+			}
+			public function getScore ():void
+			{
+				highScore.text=(score+"points");
+			}
+			
+			protected function viewActivateHandler(event:FlexEvent):void
+			{
+				read();
+				getPlayerName();
+				getScore();
+				
+			}
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Label fontSize="36" horizontalCenter="0" text="Scores" verticalCenter="0"/>
+	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
+	<s:Label fontSize="36" horizontalCenter="0" text="Scores"/>
+	<mx:Spacer width="100%" height="6%"/>
+	<s:Label id="playerName" width="50%" fontSize="20" text="" />
+	<s:Label id="highScore" width="50%" fontSize="20" text="" />
+	</s:VGroup>
 	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
 </s:View>
