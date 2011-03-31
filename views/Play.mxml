@@ -46,7 +46,7 @@
 			private function save():void
 			{
 				// Create file object (resolve user's documents directory, add own directory and file name)
-				file = File.documentsDirectory.resolvePath(directory + "\\" + fileName);
+				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
 				// FileStream for writing the file
 				fileStream = new FileStream();
 				// Open the file in write mode
@@ -57,31 +57,7 @@
 				// Close FileStream
 				fileStream.close();
 			}
-			private function read():void
-			{
-				// Get hte correct path
-				file = File.documentsDirectory.resolvePath(directory + "\\" + fileName);
-				
-				// read the file if it exists
-				if(file.exists)
-				{
-					// FileStream for reading the file
-					fileStream = new FileStream();
-					// Open the file in read mode
-					fileStream.open(file, FileMode.READ);
-					// Read the ArrayCollection object of persons from the file
-					playername = fileStream.readObject() as String;
-					// Close the FileStream
-					fileStream.close();
-				}
-				else
-				{
-					// some sample data + save if file does not exist
-					playername="Man";
-					score=0;
-					save();
-				}
-			}
+			
 			
 			private function getRoundString():String
 			{
@@ -141,6 +117,7 @@
 			}
 			private function msgBox_onEnter(event:MessageBoxEvent):void
 			{
+				playername=event.message;
 				save();
 				level++;
 				score=0;
