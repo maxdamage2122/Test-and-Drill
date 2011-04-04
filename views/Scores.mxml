@@ -9,17 +9,25 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			private var playername:String;
+		 
 			private var file:File;
 			private var fileStream:FileStream;
 			private var fileName:String = "level1.txt";
 			private var directory:String = "leaderboards";
-			private var score:int;
-			private function read():void
+			private var level:Number = 1;
+			private var playername:Array= new Array();
+			private var score:Array= new Array();
+			
+			private function read(level:Number):void
+			
 			{
-				// Get hte correct path
+				fileName=("level"+level+".txt");
+				// Get the correct path
 				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
-				
+				for(i=0;i<10;i++){ //resets all scores to default dashes
+					playername[i] = "----";
+					score[i]= "--";
+				}
 				// read the file if it exists
 				if(file.exists)
 				{
@@ -28,31 +36,50 @@
 					// Open the file in read mode
 					fileStream.open(file, FileMode.READ);
 					// Read the scores from the file
-					playername = fileStream.readObject() as String;
-					score= fileStream.readInt();
+					for(var i:int=0;i<10;i++){
+						if(fileStream.bytesAvailable>0){ //ensure there is still more to read
+						playername[i] = fileStream.readObject() as String;
+						score[i]= fileStream.readInt();
+						}
+						
+					}
 					// Close the FileStream
 					fileStream.close();
 				}
 				else
 				{
-					// some sample data + save if file does not exist
-					playername="No data";
-					score=0;
+					// tell the user there's no scores saved yet
+					playername[0]="No Scores yet";
+					
 					
 				}
+				levelTitle.text=("Level "+level+" Leaderboards");
 			}
 			public function getPlayerName ():void
 			{
-				playerName.text=playername;
+				playerDisplay.text="";
+				for(var i:int=0;i<10;i++){
+					if(playername[i]!=null) 
+						playerDisplay.text+=((i+1)+'.	'+playername[i]+'\n');
+					else //fill empty spots with dashes
+						playerDisplay.text+=((i+1)+'.	----\n');
+				}
 			}
 			public function getScore ():void
 			{
-				highScore.text=(score+"points");
+				scoreDisplay.text="";
+				for(var i:int=0;i<10;i++){
+					if(score[i]!=null)
+						scoreDisplay.text+=(score[i]+'\n');
+					else //fill empty spots with dashes
+						scoreDisplay.text+=('--\n');
+				}
+				
 			}
 			
 			protected function viewActivateHandler(event:FlexEvent):void
 			{
-				read();
+				read(level);
 				getPlayerName();
 				getScore();
 				
@@ -62,11 +89,20 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
-	<s:Label fontSize="36" horizontalCenter="0" text="Scores"/>
-	<mx:Spacer width="100%" height="6%"/>
-	<s:Label id="playerName" width="50%" fontSize="20" text="" />
-	<s:Label id="highScore" width="50%" fontSize="20" text="" />
+	<s:VGroup y="0" width="100%" height="15%" gap="0" horizontalAlign="center" horizontalCenter="0">
+		<mx:Spacer width="100%" height="10%" />
+	<s:Label id="levelTitle" fontSize="36" horizontalCenter="0" text=""/>
 	</s:VGroup>
+		<s:HGroup right="1" width="30%" height="70%" gap="0" verticalCenter="0">
+			<s:Label id="scoreDisplay"  text="" />
+			<mx:Spacer width="10%" height="100%" />
+		</s:HGroup>
+		<s:HGroup x="0"  width="55%" height="70%" gap="0" verticalCenter="0">
+			<mx:Spacer width="10%" height="100%"/>
+			<s:Label id="playerDisplay" text="" left="1"/>
+		</s:HGroup>
+	
 	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
+	<s:Button right="10" bottom="10" label="Next" click="level++; read(level); getPlayerName(); getScore();"/>
+	<s:Button x="588" bottom="10" label="Prev" click="if(level!=1) {level--; read(level); getPlayerName(); getScore();}"/>
 </s:View>
