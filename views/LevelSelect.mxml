@@ -3,7 +3,57 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false"
-		title="LevelSelect">
+		title="LevelSelect"
+		viewActivate="viewActivateHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import views.Play;
+			import mx.events.FlexEvent;
+			private var file:File;
+			private var fileStream:FileStream;
+			private function checkUnlocks():int
+			{
+				var lvl:int;
+				file = File.applicationStorageDirectory.resolvePath("saves\\levelunlocks.txt");
+				// read the file if it exists
+				if(file.exists)
+				{
+					// FileStream for reading the file
+					fileStream = new FileStream();
+					// Open the file in read mode
+					fileStream.open(file, FileMode.READ);
+					// Read level from file
+					lvl=fileStream.readInt();
+					// Close the FileStream
+					fileStream.close();
+					return lvl;
+				} else
+				{
+					return 1;
+				}
+			}
+			protected function viewActivateHandler(event:FlexEvent):void
+			{
+				var lvl:int;
+				lvl=checkUnlocks();
+				if(lvl>1){
+					lvl2.enabled=true;
+				} 
+				if(lvl>2){
+					lvl3.enabled=true;
+				}
+				if(lvl>3){
+					lvl4.enabled=true;
+				}
+				if(lvl>4){
+					lvl5.enabled=true;
+				}
+				if(lvl>5){
+					lvl6.enabled=true;
+				}
+			}
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -11,23 +61,23 @@
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl1" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 1"
-				  click="navigator.pushView(Play)" left="20"/>
+				  click="navigator.pushView(Play); Play.level=1;" left="20"/>
 		<s:Button id="lvl2" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 2" click="navigator.pushView(Play)" right="20"/>
+				  label="Level 2" click="navigator.pushView(Play); Play.level=2;" right="20" enabled="false"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl3" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 3" click="navigator.pushView(Play)"/>
+				  label="Level 3" click="navigator.pushView(Play); Play.level=3;" enabled="false"/>
 		<s:Button id="lvl4" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 4" click="navigator.pushView(Play)"/>
+				  label="Level 4" click="navigator.pushView(Play); Play.level=4;" enabled="false"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl5" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 5"
-				  click="navigator.pushView(Play)"/>
+				  click="navigator.pushView(Play); Play.level=5;" enabled="false"/>
 		<s:Button id="lvl6" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 6"
-				  click="navigator.pushView(Play)"/>
+				  click="navigator.pushView(Play); Play.level=6;" enabled="false"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 	</s:VGroup>
