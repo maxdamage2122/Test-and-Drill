@@ -8,8 +8,6 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
-			
-		 
 			private var file:File;
 			private var fileStream:FileStream;
 			private var fileName:String = "level1.txt";
@@ -40,8 +38,7 @@
 						if(fileStream.bytesAvailable>0){ //ensure there is still more to read
 						playername[i] = fileStream.readObject() as String;
 						score[i]= fileStream.readInt();
-						}
-						
+						}	
 					}
 					// Close the FileStream
 					fileStream.close();
@@ -55,7 +52,7 @@
 				}
 				levelTitle.text=("Level "+level+" Leaderboards");
 			}
-			public function getPlayerName ():void
+			protected function getPlayerName ():void
 			{
 				playerDisplay.text="";
 				for(var i:int=0;i<10;i++){
@@ -65,7 +62,7 @@
 						playerDisplay.text+=((i+1)+'.	----\n');
 				}
 			}
-			public function getScore ():void
+			protected function getScore ():void
 			{
 				scoreDisplay.text="";
 				for(var i:int=0;i<10;i++){
