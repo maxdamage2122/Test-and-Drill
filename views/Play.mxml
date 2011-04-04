@@ -4,7 +4,8 @@
 		xmlns:components="components.*"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false" clipAndEnableScrolling="true" overlayControls="true"
-		viewActivate="viewActivateHandler(event)">
+		viewActivate="viewActivateHandler(event)" >
+	
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
@@ -45,13 +46,14 @@
 			}
 			private function save():void
 			{
-				// Create file object (resolve user's documents directory, add own directory and file name)
+				fileName=("level"+level+".txt");
+				// Create file object
 				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
 				// FileStream for writing the file
 				fileStream = new FileStream();
 				// Open the file in write mode
-				fileStream.open(file, FileMode.WRITE);
-				// Write the ArrayCollection object of persons to the file
+				fileStream.open(file, FileMode.APPEND);
+				// Write playername and score to the file
 				fileStream.writeObject(playername) as String;
 				fileStream.writeInt(score);
 				// Close FileStream
@@ -90,9 +92,9 @@
 			private function msgBox_onOK(event:MessageBoxEvent):void
 			{
 				if ((leftSlider.value<(away3dScene.distance+(away3dScene.distance*0.05)))&&(leftSlider.value>(away3dScene.distance-(away3dScene.distance*0.05))))
-					score++;
+					score+=5;
 				if ((rightSlider.value<(away3dScene.angle+5))&&(rightSlider.value>(away3dScene.angle-5)))
-					score++;
+					score+=5;
 				if (round < 10)
 				{
 					round++;
@@ -102,7 +104,7 @@
 				{
 					var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_INFO, "CONGRATULATIONS", "You have completed this level.");
 					msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onEndOK);
-					round=0;
+					round=1;
 					score+=levelTime;
 					myTimer.reset();
 					levelTime=60;
@@ -121,6 +123,7 @@
 				save();
 				level++;
 				score=0;
+				myTimer.start()
 			}
 			
 			private function backClicked():void
@@ -153,8 +156,6 @@
 				var count:Number = 60;
 				levelTime=60;
 				
-				//var myTimer:Timer = new Timer(1000,count);
-				
 				myTimer.addEventListener(TimerEvent.TIMER, countdown);
 				
 				myTimer.start();
@@ -175,10 +176,12 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>	 
 	
-	<s:Group top="0" width="68.5%" height="100%" horizontalCenter="0">
-		<components:Away3dScene id="away3dScene" width="100%" height="100%"/>
+	<s:Group top="0" width="68.5%" height="100%" horizontalCenter="0" >
+		<s:Image horizontalCenter="0" source="images/sky.png" depth="0"/>
+		<components:Away3dScene id="away3dScene" width="100%" height="100%" depth="1"/>
 	</s:Group>
-	
+	<s:Image width="68.5%" height="100%" horizontalCenter="0" verticalCenter="0" scaleMode="stretch" 
+			 smooth="true" source="images/tickmarks.png" />
 	<s:Image x="0" y="0" width="25%" height="100%" scaleMode="stretch" smooth="true"
 			 source="images/LeftPanelBackground.png"/>
 	<s:Image y="0" right="0" width="25%" height="100%" scaleMode="stretch" smooth="true"
