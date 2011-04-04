@@ -10,7 +10,6 @@
 		<![CDATA[
 			import flash.events.IOErrorEvent;
 			
-			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
 			import spark.events.TextOperationEvent;
@@ -26,7 +25,7 @@
 			private var directory:String = "leaderboards";
 			
 			protected var round:int = 1;
-			protected var level:int = 1;
+			static public var level:int = 1;
 			protected var score:int = 0;
 			protected var levelTime:int = 60;
 			protected var myTimer:Timer = new Timer(1000,levelTime);
@@ -52,11 +51,22 @@
 				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
 				// FileStream for writing the file
 				fileStream = new FileStream();
-				// Open the file in write mode
+				// Open the file in append mode
 				fileStream.open(file, FileMode.APPEND);
 				// Write playername and score to the file
 				fileStream.writeObject(playername) as String;
 				fileStream.writeInt(score);
+				// Close FileStream
+				fileStream.close();
+			}
+			private function levelUnlock(lvl:int):void
+			{
+				file = File.applicationStorageDirectory.resolvePath("saves\\levelunlocks.txt");
+				fileStream = new FileStream();
+				// Open the file in write mode
+				fileStream.open(file, FileMode.WRITE);
+				// Write the most recent level reached to the file
+				fileStream.writeInt(lvl);
 				// Close FileStream
 				fileStream.close();
 			}
@@ -123,6 +133,7 @@
 				playername=event.message;
 				save();
 				level++;
+				levelUnlock(level);
 				score=0;
 				myTimer.start()
 			}
