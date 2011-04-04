@@ -8,14 +8,15 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import flash.events.IOErrorEvent;
+			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
 			import spark.events.TextOperationEvent;
 			
 			import tv.digitalretro.components.MessageBox;
 			import tv.digitalretro.events.MessageBoxEvent;
-			import flash.events.IOErrorEvent;   
-			import mx.collections.ArrayCollection;
 			
 			[Bindable]
 			private var playername:String;
@@ -92,9 +93,9 @@
 			private function msgBox_onOK(event:MessageBoxEvent):void
 			{
 				if ((leftSlider.value<(away3dScene.distance+(away3dScene.distance*0.05)))&&(leftSlider.value>(away3dScene.distance-(away3dScene.distance*0.05))))
-					score+=5;
+					score+=10;
 				if ((rightSlider.value<(away3dScene.angle+5))&&(rightSlider.value>(away3dScene.angle-5)))
-					score+=5;
+					score+=10;
 				if (round < 10)
 				{
 					round++;
@@ -137,6 +138,7 @@
 			private function backClicked_onYes(event:MessageBoxEvent):void
 			{
 				navigator.popView();
+				navigator.popView();
 			}
 			
 			private function msgBox_onNo(event:MessageBoxEvent):void
@@ -150,6 +152,24 @@
 				levelTimer();
 				
 			}
+			private function timeUp(event:TimerEvent):void{
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_YESNO, MessageBox.IC_ALERT, "TIME'S UP", "Unfortunately, you ran out of time.\n\nWould you like to restart the level?");
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_YES, timeUp_onYes);
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, timeUp_onNo);
+			}
+			private function timeUp_onYes(event:MessageBoxEvent):void
+			{
+				round=1;
+				myTimer.reset();
+				levelTime=60;
+				away3dScene.loadModel();
+				myTimer.start();
+			}
+			
+			private function timeUp_onNo(event:MessageBoxEvent):void
+			{
+				navigator.popView();
+			}
 			protected function levelTimer():void
 			{
 				
@@ -157,7 +177,7 @@
 				levelTime=60;
 				
 				myTimer.addEventListener(TimerEvent.TIMER, countdown);
-				
+				myTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timeUp);
 				myTimer.start();
 				
 				function countdown(event:TimerEvent):void {
@@ -167,6 +187,7 @@
 					}
 					
 				}
+				
 				
 			}
 
@@ -211,7 +232,7 @@
 				</s:VGroup>
 			</s:HGroup>
 			<mx:Spacer width="100%" height="2%"/>
-			<s:Button width="100%" height="15%" minHeight="0" label="Back" click="backClicked()"
+			<s:Button width="100%" height="15%" minHeight="0" label="Quit" click="backClicked()"
 					  fontSize="18" skinClass="components.ButtonSkin"/>
 		</s:VGroup>
 	</s:HGroup>
