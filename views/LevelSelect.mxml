@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		actionBarVisible="false"
+		title="LevelSelect">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
+		<mx:Spacer width="100%" height="4%"/>
+		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
+		<s:Button id="lvl1" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 1"
+				  click="navigator.pushView(Play)" left="20"/>
+		<s:Button id="lvl2" width="20%" height="50%" minWidth="140" minHeight="0"
+				  label="Level 2" click="navigator.pushView(Play)" right="20"/>
+		</s:HGroup>
+		<mx:Spacer width="100%" height="4%"/>
+		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
+		<s:Button id="lvl3" width="20%" height="50%" minWidth="140" minHeight="0"
+				  label="Level 3" click="navigator.pushView(Play)"/>
+		<s:Button id="lvl4" width="20%" height="50%" minWidth="140" minHeight="0"
+				  label="Level 4" click="navigator.pushView(Play)"/>
+		</s:HGroup>
+		<mx:Spacer width="100%" height="4%"/>
+		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
+		<s:Button id="lvl5" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 5"
+				  click="navigator.pushView(Play)"/>
+		<s:Button id="lvl6" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 6"
+				  click="navigator.pushView(Play)"/>
+		</s:HGroup>
+		<mx:Spacer width="100%" height="4%"/>
+	</s:VGroup>
+	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
+</s:View>
