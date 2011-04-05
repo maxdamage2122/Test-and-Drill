@@ -13,10 +13,11 @@ package components
 	public class Away3dScene extends UIComponent
 	{
 		protected var models:Array = [
-			["cow.dae", 100, 1, 90],
+			
 			["sailboat.dae", 60, 2.5, 180],
 			["speedboat.dae", 8, 8, 90]
 		];
+		//["cow.dae", 100, 1, 90],
 		protected var curModel:uint;
 		protected var ship:ObjectContainer3D;
 		protected var view:View3D;
@@ -52,7 +53,7 @@ package components
 		
 		public function loadModel():void
 		{
-			curModel = Math.floor(Math.random()*3);
+			curModel = Math.floor(Math.random()*2);
 			var loader3D:Loader3D = Collada.load("models/"+models[curModel][0]);
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
 		}

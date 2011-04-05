@@ -42,33 +42,94 @@
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
 				myTimer.stop();
 				away3dScene.loadModel();
-				
 			}
+			
 			private function save():void
 			{
+				var tempPlayer:Array=new Array();
+				var tempScore:Array=new Array();
+				var written:Boolean=false;
 				fileName=("level"+level+".txt");
 				// Create file object
 				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
+				
+				// if file already exists, see what's in there
+				if (file.exists){
 				// FileStream for writing the file
 				fileStream = new FileStream();
-				// Open the file in append mode
-				fileStream.open(file, FileMode.APPEND);
-				// Write playername and score to the file
-				fileStream.writeObject(playername) as String;
-				fileStream.writeInt(score);
+				// Open the file in read mode
+				fileStream.open(file, FileMode.READ);
+				for (var i:int=0;i<10;i++)
+				{
+					if(fileStream.bytesAvailable>0)//ensure there is still more to read
+					{ 
+					tempPlayer[i]=fileStream.readObject() as String;
+					tempScore[i]=fileStream.readInt();
+					}
+				}
+				//change to write mode
+				fileStream.open(file, FileMode.WRITE);
+				for (i=0;i<10;i++){
+					if (score>tempScore[i]&&!written){
+						//write the new scores
+						fileStream.writeObject(playername) as String;
+						fileStream.writeInt(score);
+						//Continue with the rest of the scores
+						fileStream.writeObject(tempPlayer[i]) as String;
+						fileStream.writeInt(tempScore[i]);
+						//indicate the new score is already written
+						written=true;
+					}else
+					{
+						//write the old scores
+						fileStream.writeObject(tempPlayer[i]) as String;
+						fileStream.writeInt(tempScore[i]);
+					}
+				}
 				// Close FileStream
 				fileStream.close();
+				} else //just write the new score
+				{
+					fileStream = new FileStream();
+					fileStream.open(file, FileMode.WRITE);
+					fileStream.writeObject(playername) as String;
+					fileStream.writeInt(score);
+					fileStream.close();
+				}
+				
 			}
+			
 			private function levelUnlock(lvl:int):void
 			{
+				var temp:int=0;
 				file = File.applicationStorageDirectory.resolvePath("saves\\levelunlocks.txt");
-				fileStream = new FileStream();
-				// Open the file in write mode
-				fileStream.open(file, FileMode.WRITE);
-				// Write the most recent level reached to the file
-				fileStream.writeInt(lvl);
-				// Close FileStream
-				fileStream.close();
+				if(file.exists){
+					fileStream = new FileStream();
+					// open for reading
+					fileStream.open(file, FileMode.READ);
+					if(fileStream.bytesAvailable>0)//ensure there is still more to read
+					{ 
+					// see what the most recent unlocked level is
+					temp=fileStream.readInt();
+					}
+					// Open the file in write mode
+					fileStream.open(file, FileMode.WRITE);
+					if(lvl>temp){
+						// Write the most recent level reached to the file
+						fileStream.writeInt(lvl);
+					}
+					// Close FileStream
+					fileStream.close();
+				}else
+				{	//no previous level unlocks
+					fileStream = new FileStream();
+					// Open the file in write mode
+					fileStream.open(file, FileMode.WRITE);
+					// Write the most recent level reached to the file
+					fileStream.writeInt(lvl);
+					// Close FileStream
+					fileStream.close();
+				}
 			}
 			
 			
@@ -93,6 +154,7 @@
 									"Guess:\n",leftSlider.value," yards at ",rightSlider.value," degrees.",temp2);
 				return scores;
 			}
+			
 			private function getLevelScoreString():String
 			{
 				var levelScore:String = "";
@@ -122,12 +184,14 @@
 					
 				}
 			}
+			
 			private function msgBox_onEndOK(event:MessageBoxEvent):void
 			{
 				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_ENTER, MessageBox.IC_SAVE, "LEADERBOARD", getLevelScoreString());
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_ENTER, msgBox_onEnter);
 				
 			}
+			
 			private function msgBox_onEnter(event:MessageBoxEvent):void
 			{
 				playername=event.message;
@@ -163,11 +227,13 @@
 				levelTimer();
 				
 			}
+			
 			private function timeUp(event:TimerEvent):void{
 				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_YESNO, MessageBox.IC_ALERT, "TIME'S UP", "Unfortunately, you ran out of time.\n\nWould you like to restart the level?");
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_YES, timeUp_onYes);
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, timeUp_onNo);
 			}
+			
 			private function timeUp_onYes(event:MessageBoxEvent):void
 			{
 				round=1;
@@ -181,6 +247,7 @@
 			{
 				navigator.popView();
 			}
+			
 			protected function levelTimer():void
 			{
 				
