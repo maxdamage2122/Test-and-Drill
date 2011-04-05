@@ -2,9 +2,47 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		actionBarVisible="false" title="Settings">
+	<fx:Script>
+		<![CDATA[
+			import tv.digitalretro.components.MessageBox;
+			import tv.digitalretro.events.MessageBoxEvent;
+			private var level:int;
+			private var file:File;
+			private var fileStream:FileStream;
+			private var fileName:String = "level1.txt";
+			private var directory:String = "leaderboards";
+			private function deleteClicked():void
+			{
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_YESNO, MessageBox.IC_ALERT, "WARNING", "All scores will be destroyed\n\nAre you sure you want to do this?");
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_YES, delete_onYes);
+				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_NO, delete_onNo);
+			}
+			private function delete_onYes(event:MessageBoxEvent):void
+			{
+				for(level=1;level<=6;level++){
+				fileName=("level"+level+".txt");
+				// Get the correct path
+				file = File.applicationStorageDirectory.resolvePath(directory + "\\" + fileName);
+				// check if the file exists
+				if(file.exists)
+				{
+					//delete the file
+					file.deleteFile()
+					
+				}
+				}
+				
+			}
+			private function delete_onNo(event:MessageBoxEvent):void
+			{
+				
+			}
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Label fontSize="36" horizontalCenter="0" text="Settings" verticalCenter="0"/>
+	<s:Label fontSize="36" horizontalCenter="0" text="Settings" top="10"/>
+	<s:Button horizontalCenter="0" verticalCenter="0" label="Clear All Scores" click="deleteClicked()" />
 	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
 </s:View>
