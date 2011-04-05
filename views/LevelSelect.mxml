@@ -23,7 +23,11 @@
 					// Open the file in read mode
 					fileStream.open(file, FileMode.READ);
 					// Read level from file
+					if(fileStream.bytesAvailable>0)//ensure there is still more to read
+					{ 
 					lvl=fileStream.readInt();
+					}else
+						lvl=1;
 					// Close the FileStream
 					fileStream.close();
 					return lvl;
