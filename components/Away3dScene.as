@@ -23,6 +23,8 @@ package components
 		protected var view:View3D;
 		public var distance:int;
 		public var angle:int;
+		protected var zoomed:Boolean=false;
+		protected var zoomValue:Number;
 		
 		public function Away3dScene() 
 		{
@@ -67,6 +69,7 @@ package components
 			ship.moveDown(models[curModel][2]);
 			randomize();
 			view.scene.addChild(ship);
+			zoomValue=view.camera.zoom;
 		}
 		
 		protected function startRendering():void 
@@ -82,11 +85,29 @@ package components
 		
 		public function randomize():void
 		{
-			distance=Math.floor(Math.random() * 4100) + 1;
+			distance=Math.floor(Math.random() * 4100) + 1000;
 			angle=Math.floor(Math.random() * 360) + 1;
 			
 			ship.z=distance;
 			ship.rotationY=angle+models[curModel][3];
+		}
+		
+		public function zoom():void
+		{
+			if(!zoomed){
+				view.camera.zoom=40;
+				zoomed=true;
+			} else
+			{   //set back to original zoom
+				view.camera.zoom=zoomValue;
+				zoomed=false;
+			}
+		}
+		
+		public function resetZoom():void
+		{
+			view.camera.zoom=zoomValue;
+			zoomed=false;
 		}
 	}
 }
