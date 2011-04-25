@@ -42,7 +42,7 @@
 				msgBox.addEventListener(MessageBoxEvent.MESSAGEBOX_OK, msgBox_onOK);
 				myTimer.stop();
 				away3dScene.resetZoom();
-				away3dScene.loadModel();
+				away3dScene.loadModel(level);
 			}
 			
 			private function save():void
@@ -224,7 +224,7 @@
 
 			protected function viewActivateHandler(event:FlexEvent):void
 			{
-				away3dScene.loadModel();
+				away3dScene.loadModel(level);
 				levelTimer();
 				
 			}
@@ -240,7 +240,7 @@
 				round=1;
 				myTimer.reset();
 				levelTime=60;
-				away3dScene.loadModel();
+				away3dScene.loadModel(level);
 				myTimer.start();
 			}
 			
@@ -277,8 +277,6 @@
 	</fx:Declarations>	 
 	
 	<s:Group top="0" width="68.5%" height="100%" horizontalCenter="0" >
-		<s:Image width="100%" height="100%" depth="0" horizontalCenter="0" scaleMode="stretch"
-				 source="images/sky.png"/>
 		<components:Away3dScene id="away3dScene" width="100%" height="100%" depth="1"/>
 	</s:Group>
 	<s:Image width="68.5%" height="100%" horizontalCenter="0" verticalCenter="0" scaleMode="stretch" 

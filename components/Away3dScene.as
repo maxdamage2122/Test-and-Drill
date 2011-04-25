@@ -2,13 +2,29 @@ package components
 {
 	import away3d.containers.ObjectContainer3D;
 	import away3d.containers.View3D;
+	import away3d.core.base.Object3D;
+	import away3d.core.clip.Clipping;
+	import away3d.core.filter.FogFilter;
+	import away3d.core.render.BasicRenderer;
+	import away3d.core.vos.FogVO;
 	import away3d.events.Loader3DEvent;
 	import away3d.loaders.Collada;
 	import away3d.loaders.Loader3D;
+	import away3d.materials.BitmapFileMaterial;
+	import away3d.materials.ColorMaterial;
+	import away3d.materials.TransformBitmapMaterial;
+	import away3d.primitives.Plane;
+	import away3d.sprites.Sprite3D;
 	
+	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import mx.core.BitmapAsset;
 	import mx.core.UIComponent;
+	
+	import spark.primitives.BitmapImage;
 	
 	public class Away3dScene extends UIComponent
 	{
@@ -25,10 +41,71 @@ package components
 		public var angle:int;
 		protected var zoomed:Boolean=false;
 		protected var zoomValue:Number;
+		protected var day:BitmapFileMaterial;
+		protected var night:BitmapFileMaterial;
+		protected var background:Sprite;
+		[Embed (source="images/daySky.png")]
+		public static const Background1:Class;
+		public static const Background1_BitmapAsset:BitmapAsset = new Background1();
+		public static const Background1_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Background1_BitmapAsset.bitmapData);
+		[Embed (source="images/nightSky.png")]
+		public static const Background2:Class;
+		public static const Background2_BitmapAsset:BitmapAsset = new Background2();
+		public static const Background2_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Background2_BitmapAsset.bitmapData);
+		[Embed (source="images/water.png")]
+		public static const Water1:Class;
+		public static const Water1_BitmapAsset:BitmapAsset = new Water1();
+		public static const Water1_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Water1_BitmapAsset.bitmapData);
+		[Embed (source="images/water.png")]
+		public static const Water2:Class;
+		public static const Water2_BitmapAsset:BitmapAsset = new Water2();
+		public static const Water2_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Water2_BitmapAsset.bitmapData);
+		protected static const ZPOS:Number = 5101;
+		protected static const WIDTH:Number = 3500;
+		protected static const HEIGHT:Number = 3000;
+		protected var bgmaterial:TransformBitmapMaterial = null;
+		protected var watermaterial:TransformBitmapMaterial = null;
 		
+			
+			
+			public var bground:Object3D = null;
+			public var water:Object3D = null;
+			
+			public function startupBackgroundPlane(lvl:Number):void
+			{
+				if(lvl%2==0)
+				{
+					bgmaterial = Background2_Tex;
+					watermaterial = Water2_Tex;
+				}else{
+					bgmaterial = Background1_Tex;
+					watermaterial = Water1_Tex;
+				}
+				if(bground!=null)
+					view.scene.removeChild(bground);
+				
+				bground = new Plane({	material:bgmaterial,
+					width:WIDTH,
+					height:HEIGHT});
+				view.scene.addChild(bground);
+				
+				
+				bground.rotationX = 90;
+				bground.y = 0;
+				bground.z = ZPOS;
+				
+				if(water!=null)
+					view.scene.removeChild(water);
+				water= new Plane ({material:watermaterial, width:10000, height:7500});
+				view.scene.addChild(water);
+				water.y=-75;
+				water.z=1000;
+				
+			} 
 		public function Away3dScene() 
 		{
 			super();
+			
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);	
 		}
 		
@@ -53,8 +130,9 @@ package components
 			startRendering();
 		}
 		
-		public function loadModel():void
-		{
+		public function loadModel(lvl:Number):void
+		{   
+			startupBackgroundPlane(lvl);
 			curModel = Math.floor(Math.random()*2);
 			var loader3D:Loader3D = Collada.load("models/"+models[curModel][0]);
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
@@ -70,17 +148,21 @@ package components
 			randomize();
 			view.scene.addChild(ship);
 			zoomValue=view.camera.zoom;
+			
+			
 		}
 		
 		protected function startRendering():void 
 		{
 			addEventListener(Event.ENTER_FRAME, onRenderTick);
+			
 		}
 		
 		protected function onRenderTick(event:Event = null):void 
 		{			
 			//Render View
 			view.render();
+			
 		}
 		
 		public function randomize():void
@@ -95,7 +177,7 @@ package components
 		public function zoom():void
 		{
 			if(!zoomed){
-				view.camera.zoom=40;
+				view.camera.zoom=25;
 				zoomed=true;
 			} else
 			{   //set back to original zoom
