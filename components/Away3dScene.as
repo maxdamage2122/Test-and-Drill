@@ -30,8 +30,8 @@ package components
 	{
 		protected var models:Array = [
 			
-			["sailboat.dae", 60, 2.5, 180],
-			["speedboat.dae", 8, 8, 90]
+			["sailboat.dae", 60, 0.75, 180],
+			["speedboat.dae", 8, 5, 90]
 		];
 		//["cow.dae", 100, 1, 90],
 		protected var curModel:uint;
@@ -39,6 +39,7 @@ package components
 		protected var view:View3D;
 		public var distance:int;
 		public var angle:int;
+		public var level:int;
 		protected var zoomed:Boolean=false;
 		protected var zoomValue:Number;
 		protected var day:BitmapFileMaterial;
@@ -56,7 +57,7 @@ package components
 		public static const Water1:Class;
 		public static const Water1_BitmapAsset:BitmapAsset = new Water1();
 		public static const Water1_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Water1_BitmapAsset.bitmapData);
-		[Embed (source="images/water.png")]
+		[Embed (source="images/nightWater.png")]
 		public static const Water2:Class;
 		public static const Water2_BitmapAsset:BitmapAsset = new Water2();
 		public static const Water2_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Water2_BitmapAsset.bitmapData);
@@ -96,10 +97,11 @@ package components
 				
 				if(water!=null)
 					view.scene.removeChild(water);
-				water= new Plane ({material:watermaterial, width:10000, height:7500});
+				water= new Plane ({material:watermaterial, width:1500, height:500});
 				view.scene.addChild(water);
-				water.y=-75;
-				water.z=1000;
+				water.rotationX = 90;
+				water.y=-280+((distance-1000)/200);
+				water.z=750;
 				
 			} 
 		public function Away3dScene() 
@@ -128,14 +130,17 @@ package components
 		protected function onAddedToStage(event:Event):void 
 		{
 			startRendering();
+			//
 		}
 		
 		public function loadModel(lvl:Number):void
 		{   
-			startupBackgroundPlane(lvl);
+			level=lvl;
 			curModel = Math.floor(Math.random()*2);
 			var loader3D:Loader3D = Collada.load("models/"+models[curModel][0]);
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
+			
+			//view.camera.y=10;
 		}
 		
 		protected function onModelLoadSuccess(event:Loader3DEvent):void 
@@ -145,7 +150,7 @@ package components
 			ship = event.loader.handle as ObjectContainer3D;
 			ship.scale(models[curModel][1]);
 			ship.moveDown(models[curModel][2]);
-			randomize();
+			randomize(level);
 			view.scene.addChild(ship);
 			zoomValue=view.camera.zoom;
 			
@@ -165,13 +170,14 @@ package components
 			
 		}
 		
-		public function randomize():void
+		public function randomize(lvl:Number):void
 		{
 			distance=Math.floor(Math.random() * 4100) + 1000;
 			angle=Math.floor(Math.random() * 360) + 1;
 			
 			ship.z=distance;
 			ship.rotationY=angle+models[curModel][3];
+			startupBackgroundPlane(lvl);
 		}
 		
 		public function zoom():void
