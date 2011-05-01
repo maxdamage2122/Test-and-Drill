@@ -30,8 +30,10 @@ package components
 	{
 		protected var models:Array = [
 			
-			["sailboat.dae", 60, 0.75, 180],
-			["speedboat.dae", 8, 5, 90]
+			["sailboat.dae", 12, 0.75, 180],
+			["speedboat.dae", 0.4, 5, 90],
+			["cargo.dae", 4.5, 3, -90]
+			
 		];
 		//["cow.dae", 100, 1, 90],
 		protected var curModel:uint;
@@ -100,7 +102,7 @@ package components
 				water= new Plane ({material:watermaterial, width:1500, height:500});
 				view.scene.addChild(water);
 				water.rotationX = 90;
-				water.y=-280+((distance-1000)/200);
+				water.y=-260+((distance-1000)/200);
 				water.z=750;
 				
 			} 
@@ -136,7 +138,7 @@ package components
 		public function loadModel(lvl:Number):void
 		{   
 			level=lvl;
-			curModel = Math.floor(Math.random()*2);
+			curModel = Math.floor(Math.random()*3);
 			var loader3D:Loader3D = Collada.load("models/"+models[curModel][0]);
 			loader3D.addEventListener(Loader3DEvent.LOAD_SUCCESS, onModelLoadSuccess);
 			
@@ -172,7 +174,7 @@ package components
 		
 		public function randomize(lvl:Number):void
 		{
-			distance=Math.floor(Math.random() * 4100) + 1000;
+			distance=Math.floor(Math.random() * 4100) + 500;
 			angle=Math.floor(Math.random() * 360) + 1;
 			
 			ship.z=distance;
@@ -183,7 +185,7 @@ package components
 		public function zoom():void
 		{
 			if(!zoomed){
-				view.camera.zoom=25;
+				view.camera.zoom=28;
 				zoomed=true;
 			} else
 			{   //set back to original zoom
