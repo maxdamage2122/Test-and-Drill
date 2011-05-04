@@ -174,6 +174,9 @@ package components
 		
 		public function randomize(lvl:Number):void
 		{
+			if (curModel==1){
+				distance=Math.floor(Math.random() * 1750) + 250;
+			}else
 			distance=Math.floor(Math.random() * 4100) + 500;
 			angle=Math.floor(Math.random() * 360) + 1;
 			
