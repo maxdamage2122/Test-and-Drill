@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false" title="Settings">
 	<fx:Script>
 		<![CDATA[
@@ -37,12 +38,31 @@
 			{
 				
 			}
+			private function unlockClicked():void
+			{
+				var msgBox:MessageBox = MessageBox.show(this.parent, MessageBox.MB_OK, MessageBox.IC_ALERT, "Unlocked!", "All levels are now unlocked!");
+				fileName=("saves\\levelunlocks.txt");
+				file = File.applicationStorageDirectory.resolvePath(fileName);
+				fileStream = new FileStream();
+				// Open the file in write mode
+				fileStream.open(file, FileMode.WRITE);
+				// Write the last level
+				fileStream.writeInt(6);
+				// Close FileStream
+				fileStream.close();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Label fontSize="36" horizontalCenter="0" text="Settings" top="10"/>
-	<s:Button horizontalCenter="0" verticalCenter="0" label="Clear All Scores" click="deleteClicked()" />
+	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
+	<mx:Spacer width="100%" height="15%"/>
+	<s:Button horizontalCenter="0" height="20%" label="Clear All Scores" click="deleteClicked()" />
+	<mx:Spacer width="100%" height="4%"/>
+	<s:Button horizontalCenter="0" height="20%" label="Unlock All Levels" click="unlockClicked()" />
+	</s:VGroup>
 	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
+	
 </s:View>
