@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:components="spark.components.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="420">
 	
 	<fx:Script>
@@ -129,8 +130,11 @@
 				</s:stroke>
 			</s:Line>
 			<s:Label maxDisplayedLines="6" maxHeight="300" width="100%" fontSize="24" fontWeight="normal" paddingTop="12" paddingBottom="12" paddingLeft="15" paddingRight="15" text="{this.message}"/>
-			<s:TextInput id="inputValue" width="100%" height="10%" enabled="true" fontSize="13"
-						 fontWeight="normal" text="Enter Name" textAlign="center" includeIn="ST_ENTER"/>
+			<s:HGroup includeIn="ST_ENTER" width="100%" height="35" gap="0">
+				<mx:Spacer width="5%" height="100%"/>
+				<s:TextInput id="inputValue" includeIn="ST_ENTER" width="90%" height="100%"
+							 enabled="true" fontSize="13" fontWeight="normal" textAlign="center"/>
+			</s:HGroup>
 			
 			<s:Group width="100%" height="70">
 				<s:Image source="tv/digitalretro/assets/button_gloss.png"/>

@@ -156,7 +156,7 @@
 			private function getLevelScoreString():String
 			{
 				var levelScore:String = "";
-				levelScore=levelScore.concat("Your score for Level ",level," was ",score,"\n\n","Enter your name to record your score on the leaderboard.");
+				levelScore=levelScore.concat("Your score for Level ",level," was ",score,"\n\n","Enter your name below to record your score on the leaderboard.");
 				return levelScore;
 			}
 			
