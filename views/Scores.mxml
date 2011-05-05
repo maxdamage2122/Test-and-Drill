@@ -100,6 +100,6 @@
 		</s:HGroup>
 	
 	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
-	<s:Button right="10" bottom="10" label="Next" click="level++; read(level); getPlayerName(); getScore();"/>
+	<s:Button right="10" bottom="10" label="Next" click="if(level!=6) {level++; read(level); getPlayerName(); getScore();}"/>
 	<s:Button x="588" bottom="10" label="Prev" click="if(level!=1) {level--; read(level); getPlayerName(); getScore();}"/>
 </s:View>
