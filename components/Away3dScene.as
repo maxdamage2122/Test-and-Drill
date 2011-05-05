@@ -64,8 +64,6 @@ package components
 		public static const Water2_BitmapAsset:BitmapAsset = new Water2();
 		public static const Water2_Tex:TransformBitmapMaterial = new TransformBitmapMaterial(Water2_BitmapAsset.bitmapData);
 		protected static const ZPOS:Number = 5101;
-		protected static const WIDTH:Number = 3500;
-		protected static const HEIGHT:Number = 3000;
 		protected var bgmaterial:TransformBitmapMaterial = null;
 		protected var watermaterial:TransformBitmapMaterial = null;
 		
@@ -88,10 +86,9 @@ package components
 					view.scene.removeChild(bground);
 				
 				bground = new Plane({	material:bgmaterial,
-					width:WIDTH,
-					height:HEIGHT});
+					width:this.width*6.25,
+					height:this.height*6.25});
 				view.scene.addChild(bground);
-				
 				
 				bground.rotationX = 90;
 				bground.y = 0;
