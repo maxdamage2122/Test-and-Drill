@@ -214,7 +214,6 @@
 			private function backClicked_onYes(event:MessageBoxEvent):void
 			{
 				navigator.popView();
-				navigator.popView();
 			}
 			
 			private function msgBox_onNo(event:MessageBoxEvent):void
