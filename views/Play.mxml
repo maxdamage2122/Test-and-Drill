@@ -326,13 +326,27 @@
 	<s:Image y="0" right="0" width="25%" height="100%" scaleMode="stretch" smooth="true"
 			 source="images/RightPanelBackground.png"/>
 	
+	<s:VGroup y="0" right="0" width="15.5%" height="100%" gap="0">
+		<mx:Spacer width="100%" height="19%"/>
+		<s:SkinnableContainer width="98%" height="59.5%" skinClass="components.ControlsSkin">
+		</s:SkinnableContainer>
+	</s:VGroup>
+	<s:VGroup y="0" left="0" width="15.5%" height="100%" gap="0" horizontalAlign="right">
+		<mx:Spacer width="100%" height="19%"/>
+		<s:SkinnableContainer width="98%" height="59.5%" skinClass="components.ControlsSkin">
+		</s:SkinnableContainer>
+	</s:VGroup>
+	
 	<s:HGroup x="0" y="0" width="15.7%" height="100%" gap="0">
 		<mx:Spacer width="5%" height="100%"/>
 		<s:VGroup width="90%" height="100%" gap="0">
-			<mx:Spacer width="100%" height="6%"/>
+			<mx:Spacer width="100%" height="5%"/>
 			<s:TextInput id="timerValue" width="100%" height="10%" enabled="false" fontSize="13"
 						 fontWeight="normal" text="" textAlign="center"/>
-			<mx:Spacer width="100%" height="15%"/>
+			<mx:Spacer width="100%" height="5%"/>
+			<s:Label width="100%" height="6%" color="#464646" fontWeight="bold"
+					 text="Distance&#xd;" textAlign="center" verticalAlign="middle"/>
+			<mx:Spacer width="100%" height="1%"/>
 			
 			<s:HGroup width="100%" height="50%" gap="0">
 				<s:VSlider id="leftSlider" width="48%" height="100%" liveDragging="true" maximum="10000"
@@ -349,7 +363,7 @@
 							  buttonDown="leftSlider.value=leftSlider.value-1" skinClass="components.ButtonSkin"/>
 				</s:VGroup>
 			</s:HGroup>
-			<mx:Spacer width="100%" height="2%"/>
+			<mx:Spacer width="100%" height="5%"/>
 			<s:Button width="100%" height="15%" minHeight="0" label="Quit" click="backClicked()"
 					  fontSize="18" skinClass="components.ButtonSkin"/>
 		</s:VGroup>
@@ -358,9 +372,13 @@
 	<s:HGroup y="0" right="0" width="15.7%" height="100%" gap="0">
 		<mx:Spacer width="5%" height="100%"/>
 		<s:VGroup width="90%" height="100%" gap="0">
-			<mx:Spacer width="100%" height="6%"/>
-			<s:Button id="zoom" height="10%" enabled="true" label="Low" click="zoomClicked()"/>
-			<mx:Spacer width="100%" height="15%"/>
+			<mx:Spacer width="100%" height="5%"/>
+			<s:Button id="zoom" width="100%" height="10%" label="Low" click="zoomClicked()"
+					  enabled="true" fontSize="18" skinClass="components.ButtonSkin"/>
+			<mx:Spacer width="100%" height="5%"/>
+			<s:Label width="100%" height="6%" color="#464646" fontWeight="bold"
+					 text="Angle" textAlign="center" verticalAlign="middle"/>
+			<mx:Spacer width="100%" height="1%"/>
 			<s:HGroup width="100%" height="50%" gap="0">
 				<s:VGroup width="48%" height="100%" gap="0">
 					<s:TextInput id="rightValue" width="100%" height="32%" enabled="false" fontSize="13"
@@ -376,7 +394,7 @@
 				<s:VSlider id="rightSlider" width="48%" height="100%" liveDragging="true" maximum="180"
 						   minimum="-180" skinClass="components.VSliderSkin"/>
 			</s:HGroup>
-			<mx:Spacer width="100%" height="2%"/>
+			<mx:Spacer width="100%" height="5%"/>
 			<s:Button width="100%" height="15%" minHeight="0" label="Submit"
 					  click="okBtn_clickHandler(event)" fontSize="18"
 					  skinClass="components.ButtonSkin"/>
