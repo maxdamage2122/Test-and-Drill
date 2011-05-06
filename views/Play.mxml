@@ -148,8 +148,6 @@
 				var scores:String = "";
 				getSceneAngle();
 				
-				//scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",getAngleSlider(angle),".\n\n",
-									//"Guess:\n",leftSlider.value," yards at ",getAngleSlider(rightSlider.value),".");
 				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",Math.abs(angle),"°");
 				if (angle>0)
 					scores=scores.concat(" Port");
