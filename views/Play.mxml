@@ -264,14 +264,11 @@
 				
 				myTimer.repeatCount = levelTime;
 				
-				if (!myTimer.hasEventListener(TimerEvent.TIMER)) {
+				if (!myTimer.hasEventListener(TimerEvent.TIMER))
 					myTimer.addEventListener(TimerEvent.TIMER, countdown);
-					trace("TIMER added");
-				}
-				if (!myTimer.hasEventListener(TimerEvent.TIMER_COMPLETE)) {
+				if (!myTimer.hasEventListener(TimerEvent.TIMER_COMPLETE))
 					myTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timeUp);
-					trace("TIMER_COMPLETE added");
-				}
+				
 				myTimer.start();
 				
 				function countdown(event:TimerEvent):void {
