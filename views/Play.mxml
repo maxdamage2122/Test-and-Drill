@@ -156,10 +156,10 @@
 						scores=scores.concat(" Starboard");
 				scores=scores.concat(".\n\nGuess:\n",leftSlider.value," yards at ",Math.abs(rightSlider.value),"°");
 				if (rightSlider.value>0)
-					scores=scores.concat(" Starboard");
+					scores=scores.concat(" Port");
 				else
 					if (rightSlider.value<0)
-						scores=scores.concat(" Port");
+						scores=scores.concat(" Starboard");
 				scores=scores.concat(".");
 				return scores;
 			}
