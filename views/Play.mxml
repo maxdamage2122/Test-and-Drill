@@ -150,18 +150,18 @@
 				
 				//scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",getAngleSlider(angle),".\n\n",
 									//"Guess:\n",leftSlider.value," yards at ",getAngleSlider(rightSlider.value),".");
-				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",Math.abs(angle),"° ");
+				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",Math.abs(angle),"°");
 				if (angle>0)
-					scores=scores.concat("Starboard");
+					scores=scores.concat(" Port");
 				else
 					if (angle<0)
-						scores=scores.concat("Port");
-				scores=scores.concat(".\n\nGuess:\n",leftSlider.value," yards at ",Math.abs(rightSlider.value),"° ");
+						scores=scores.concat(" Starboard");
+				scores=scores.concat(".\n\nGuess:\n",leftSlider.value," yards at ",Math.abs(rightSlider.value),"°");
 				if (rightSlider.value>0)
-					scores=scores.concat("Starboard");
+					scores=scores.concat(" Starboard");
 				else
 					if (rightSlider.value<0)
-						scores=scores.concat("Port");
+						scores=scores.concat(" Port");
 				scores=scores.concat(".");
 				return scores;
 			}
@@ -308,9 +308,9 @@
 			{
 				var display:String;
 				if (angle>0)
-					display=Math.abs(angle).toString()+'°\nStar-\nboard';
-				else if (angle<0)
 					display=Math.abs(angle).toString()+'°\nPort';
+				else if (angle<0)
+					display=Math.abs(angle).toString()+'°\nStar-\nboard';
 				else 
 					display='\n'+Math.abs(angle).toString()+'°';
 				return display;
