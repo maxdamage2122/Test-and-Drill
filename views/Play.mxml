@@ -148,8 +148,21 @@
 				var scores:String = "";
 				getSceneAngle();
 				
-				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",getAngleSlider(angle),".\n\n",
-									"Guess:\n",leftSlider.value," yards at ",getAngleSlider(rightSlider.value),".");
+				//scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",getAngleSlider(angle),".\n\n",
+									//"Guess:\n",leftSlider.value," yards at ",getAngleSlider(rightSlider.value),".");
+				scores=scores.concat("Answer:\n",away3dScene.distance," yards at ",Math.abs(angle),"° ");
+				if (angle>0)
+					scores=scores.concat("Starboard");
+				else
+					if (angle<0)
+						scores=scores.concat("Port");
+				scores=scores.concat(".\n\nGuess:\n",leftSlider.value," yards at ",Math.abs(rightSlider.value),"° ");
+				if (rightSlider.value>0)
+					scores=scores.concat("Starboard");
+				else
+					if (rightSlider.value<0)
+						scores=scores.concat("Port");
+				scores=scores.concat(".");
 				return scores;
 			}
 			
@@ -294,13 +307,12 @@
 			protected function getAngleSlider(angle:Number):String
 			{
 				var display:String;
-				display=Math.abs(angle).toString();
 				if (angle>0)
-					display+='° S';
+					display=Math.abs(angle).toString()+'°\nStar-\nboard';
 				else if (angle<0)
-					display+='° P';
+					display=Math.abs(angle).toString()+'°\nPort';
 				else 
-					display+='°';
+					display='\n'+Math.abs(angle).toString()+'°';
 				return display;
 			}
 			
@@ -384,8 +396,8 @@
 			<mx:Spacer width="100%" height="1%"/>
 			<s:HGroup width="100%" height="50%" gap="0">
 				<s:VGroup width="48%" height="100%" gap="0">
-					<s:TextInput id="rightValue" width="100%" height="32%" enabled="false" fontSize="13"
-								 fontWeight="normal" text="{getAngleSlider(rightSlider.value)}" textAlign="center"/>
+					<s:TextArea id="rightValue" width="100%" height="32%" enabled="false" fontSize="13"
+								fontWeight="normal" text="{getAngleSlider(rightSlider.value)}" textAlign="center"/>
 					<mx:Spacer width="100%" height="2%"/>
 					<s:Button id="rightPlus" width="100%" height="32%" label="+" autoRepeat="true" minHeight="0"
 							  buttonDown="rightSlider.value=rightSlider.value+1" cornerRadius="2" skinClass="components.ButtonSkin"/>
