@@ -287,6 +287,7 @@
 			{
 				if (lvl%2==0){
 					//adds dark filter to night levels
+					darkness.alpha = (lvl+2)/10;
 					darkness.visible=true;
 				}else{
 					darkness.visible=false;
