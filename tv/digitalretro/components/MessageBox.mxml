@@ -108,6 +108,14 @@
 				PopUpManager.removePopUp(this);
 			}
 			
+			protected function inputValue_changeHandler(event:TextOperationEvent):void
+			{
+				if (inputValue.text == "")
+					enterBtn.enabled = false;
+				else
+					enterBtn.enabled = true;
+			}
+
 		]]>
 	</fx:Script>
 	
@@ -133,13 +141,14 @@
 			<s:HGroup includeIn="ST_ENTER" width="100%" height="35" gap="0">
 				<mx:Spacer width="5%" height="100%"/>
 				<s:TextInput id="inputValue" includeIn="ST_ENTER" width="90%" height="100%"
-							 enabled="true" fontSize="13" fontWeight="normal" textAlign="center"/>
+							 change="inputValue_changeHandler(event)" enabled="true" fontSize="13"
+							 fontWeight="normal" textAlign="center"/>
 			</s:HGroup>
 			
 			<s:Group width="100%" height="70">
 				<s:Image source="tv/digitalretro/assets/button_gloss.png"/>
 				<s:HGroup bottom="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" paddingLeft="10" paddingRight="10">
-					<s:Button id="enterBtn" width="100%" height="50" label="ENTER" includeIn="ST_ENTER" 
+					<s:Button id="enterBtn" width="100%" height="50" label="ENTER" includeIn="ST_ENTER" enabled="false"
 							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="enterBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
 					<s:Button id="okayBtn" width.ST_OK="100%" width.ST_OKCANCEL="50%" height="50" label="OK" includeIn="ST_OK,ST_OKCANCEL"
 							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="okayBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
