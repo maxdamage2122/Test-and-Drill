@@ -28,7 +28,7 @@
 			static public var level:int = 1;
 			protected var score:int = 0;
 			protected var levelTime:int = 120;
-			protected var myTimer:Timer = new Timer(1000,levelTime);
+			protected var myTimer:Timer = new Timer(1000);
 			protected var angle:Number;
 			
 			protected function rightValue_changeHandler(event:TextOperationEvent):void
@@ -200,7 +200,7 @@
 				away3dScene.loadModel(level);
 				levelUnlock(level);
 				score=0;
-				myTimer.start()
+				levelTimer();
 			}
 			
 			private function backClicked():void
@@ -260,12 +260,18 @@
 			
 			protected function levelTimer():void
 			{
-				
-				var count:Number = 120;
 				levelTime=120-(level*10);
 				
-				myTimer.addEventListener(TimerEvent.TIMER, countdown);
-				myTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timeUp);
+				myTimer.repeatCount = levelTime;
+				
+				if (!myTimer.hasEventListener(TimerEvent.TIMER)) {
+					myTimer.addEventListener(TimerEvent.TIMER, countdown);
+					trace("TIMER added");
+				}
+				if (!myTimer.hasEventListener(TimerEvent.TIMER_COMPLETE)) {
+					myTimer.addEventListener(TimerEvent.TIMER_COMPLETE, timeUp);
+					trace("TIMER_COMPLETE added");
+				}
 				myTimer.start();
 				
 				function countdown(event:TimerEvent):void {
