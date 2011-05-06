@@ -206,12 +206,17 @@
 			{
 				playername=event.message;
 				save();
-				level++;
-				changeEffects(level);
-				away3dScene.loadModel(level);
-				levelUnlock(level);
-				score=0;
-				levelTimer();
+				if (level < 6)
+				{
+					level++;
+					changeEffects(level);
+					away3dScene.loadModel(level);
+					levelUnlock(level);
+					score=0;
+					levelTimer();
+				}
+				else
+					navigator.popView();
 			}
 			
 			private function backClicked():void
