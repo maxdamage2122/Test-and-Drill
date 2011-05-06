@@ -334,7 +334,8 @@
 	</fx:Declarations>	 
 	
 	<s:Group top="0" width="68.5%" height="100%" horizontalCenter="0" >
-		<s:Image id="darkness" source="images/darkness.png" height="100%" width="100%" depth="3" visible="false"/>
+		<s:Image id="darkness" visible="false" width="100%" height="100%" depth="3"
+				 scaleMode="stretch" source="images/darkness.png"/>
 		<components:Away3dScene id="away3dScene" width="100%" height="100%" depth="1" visible="true"/>
 	</s:Group>
 	<s:Image width="68.5%" height="100%" horizontalCenter="0" verticalCenter="0" scaleMode="stretch" 
