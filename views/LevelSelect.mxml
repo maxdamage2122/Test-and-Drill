@@ -7,8 +7,11 @@
 		viewActivate="viewActivateHandler(event)">
 	<fx:Script>
 		<![CDATA[
-			import views.Play;
 			import mx.events.FlexEvent;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			import views.Play;
 			private var file:File;
 			private var fileStream:FileStream;
 			private function checkUnlocks():int
@@ -36,7 +39,7 @@
 					return 1;
 				}
 			}
-			protected function viewActivateHandler(event:FlexEvent):void
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
 			{
 				var lvl:int;
 				lvl=checkUnlocks();
@@ -56,6 +59,7 @@
 					lvl6.enabled=true;
 				}
 			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

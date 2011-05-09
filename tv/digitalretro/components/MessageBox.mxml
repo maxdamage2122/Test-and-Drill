@@ -149,15 +149,15 @@
 				<s:Image source="tv/digitalretro/assets/button_gloss.png"/>
 				<s:HGroup bottom="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" paddingLeft="10" paddingRight="10">
 					<s:Button id="enterBtn" width="100%" height="50" label="ENTER" includeIn="ST_ENTER" enabled="false"
-							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="enterBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="enterBtn_clickHandler(event)" color="#000000"/>
 					<s:Button id="okayBtn" width.ST_OK="100%" width.ST_OKCANCEL="50%" height="50" label="OK" includeIn="ST_OK,ST_OKCANCEL"
-							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="okayBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="okayBtn_clickHandler(event)" color="#000000"/>
 					<s:Button id="cancelBtn" width="50%" height="50" label="Cancel" includeIn="ST_OKCANCEL"
-							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="cancelBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="cancelBtn_clickHandler(event)" color="#000000"/>
 					<s:Button id="yesBtn" width="50%" height="50" label="Yes" includeIn="ST_YESNO"
-							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="yesBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="yesBtn_clickHandler(event)" color="#000000"/>
 					<s:Button id="noBtn" width="50%" height="50" label="No" includeIn="ST_YESNO"
-							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="noBtn_clickHandler(event)" color="#000000" cornerRadius="40"/>
+							  fontSize="18" fontFamily="_sans" fontWeight="normal" chromeColor="#ECECEC" click="noBtn_clickHandler(event)" color="#000000"/>
 				</s:HGroup>
 			</s:Group>
 		</s:VGroup>

@@ -8,6 +8,8 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
+			
+			import spark.events.ViewNavigatorEvent;
 			private var file:File;
 			private var fileStream:FileStream;
 			private var fileName:String = "level1.txt";
@@ -74,13 +76,14 @@
 				
 			}
 			
-			protected function viewActivateHandler(event:FlexEvent):void
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void
 			{
 				read(level);
 				getPlayerName();
 				getScore();
 				
 			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
