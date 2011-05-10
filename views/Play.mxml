@@ -369,8 +369,8 @@
 			<mx:Spacer width="100%" height="1%"/>
 			
 			<s:HGroup width="100%" height="50%" gap="0">
-				<s:VSlider id="leftSlider" width="48%" height="100%" liveDragging="true" maximum="10000"
-						   minimum="10" skinClass="components.VSliderSkin"/>
+				<s:HSlider id="leftSlider" rotationZ="-90" width="48%" height="100%" liveDragging="true" maximum="10000"
+						   minimum="10" showDataTip="false"/>
 				<mx:Spacer width="4%" height="100%"/>
 				<s:VGroup width="48%" height="100%" gap="0">
 					<s:TextInput id="leftValue" width="100%" height="32%" enabled="false" fontSize="13"
@@ -411,8 +411,8 @@
 							  buttonDown="rightSlider.value=rightSlider.value-1" skinClass="components.NewButtonSkin"/>
 				</s:VGroup>
 				<mx:Spacer width="4%" height="100%"/>
-				<s:VSlider id="rightSlider" width="48%" height="100%" liveDragging="true" maximum="180"
-						   minimum="-180" skinClass="components.VSliderSkin"/>
+				<s:HSlider id="rightSlider" rotationZ="-90" width="48%" height="100%" liveDragging="true" maximum="180"
+						   minimum="-180" showDataTip="false"/>
 			</s:HGroup>
 			<mx:Spacer width="100%" height="5%"/>
 			<s:Button width="100%" height="15%" minHeight="0" label="Submit"
