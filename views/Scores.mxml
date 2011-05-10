@@ -4,7 +4,7 @@
 		xmlns:components="components.*"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false" title="Scores"
-		viewActivate="viewActivateHandler(event)">
+		viewActivate="viewActivateHandler(event)" backgroundColor="0x464646">
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
