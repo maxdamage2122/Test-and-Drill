@@ -4,7 +4,7 @@
 		xmlns:components="components.*"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		actionBarVisible="false" overlayControls="true"
-		viewActivate="viewActivateHandler(event)">
+		viewActivate="viewActivateHandler(event)" backKeyPressed="backKeyPressedHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
@@ -326,6 +326,12 @@
 					angle = away3dScene.angle;
 				}else
 					angle = -(180 - (away3dScene.angle-180))
+			}
+			
+			protected function backKeyPressedHandler(event:FlexEvent):void
+			{
+				event.preventDefault();
+				backClicked();
 			}
 			
 		]]>
