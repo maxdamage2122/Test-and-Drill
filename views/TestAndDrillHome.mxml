@@ -9,15 +9,15 @@
 	<s:VGroup y="0" width="100%" height="100%" gap="0" horizontalAlign="center" horizontalCenter="0">
 		<mx:Spacer width="100%" height="4%"/>
 		<s:Button id="play" width="12%" height="20%" minWidth="95" minHeight="0" label="Play"
-				  click="navigator.pushView(LevelSelect)"/>
+				  click="navigator.pushView(LevelSelect)" skinClass="components.NewButtonSkin"/>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:Button id="viewScores" width="24%" height="20%" minWidth="190" minHeight="0"
-				  label="View Scores" click="navigator.pushView(Scores)"/>
+				  label="View Scores" click="navigator.pushView(Scores)" skinClass="components.NewButtonSkin"/>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:Button id="settings" width="18%" height="20%" minWidth="140" minHeight="0"
-				  label="Settings" click="navigator.pushView(Settings)"/>
+				  label="Settings" click="navigator.pushView(Settings)" skinClass="components.NewButtonSkin"/>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:Button id="exit" width="12%" height="20%" minWidth="90" minHeight="0" label="Exit"
-				  click="NativeApplication.nativeApplication.exit()"/>
+				  click="NativeApplication.nativeApplication.exit()" skinClass="components.NewButtonSkin"/>
 	</s:VGroup>
 </s:View>

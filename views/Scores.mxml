@@ -102,7 +102,7 @@
 			<s:Label id="playerDisplay" text="" left="1"/>
 		</s:HGroup>
 	
-	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
-	<s:Button right="10" bottom="10" label="Next" click="if(level!=6) {level++; read(level); getPlayerName(); getScore();}"/>
-	<s:Button x="588" bottom="10" label="Prev" click="if(level!=1) {level--; read(level); getPlayerName(); getScore();}"/>
+	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()" skinClass="components.NewButtonSkin"/>
+	<s:Button right="10" bottom="10" label="Next" click="if(level!=6) {level++; read(level); getPlayerName(); getScore();}" skinClass="components.NewButtonSkin"/>
+	<s:Button x="588" bottom="10" label="Prev" click="if(level!=1) {level--; read(level); getPlayerName(); getScore();}" skinClass="components.NewButtonSkin"/>
 </s:View>

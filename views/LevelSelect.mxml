@@ -68,25 +68,25 @@
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl1" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 1"
-				  click="navigator.pushView(Play); Play.level=1;" left="20"/>
+				  click="navigator.pushView(Play); Play.level=1;" left="20" skinClass="components.NewButtonSkin"/>
 		<s:Button id="lvl2" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 2" click="navigator.pushView(Play); Play.level=2;" right="20" enabled="false"/>
+				  label="Level 2" click="navigator.pushView(Play); Play.level=2;" right="20" enabled="false" skinClass="components.NewButtonSkin"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl3" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 3" click="navigator.pushView(Play); Play.level=3;" enabled="false"/>
+				  label="Level 3" click="navigator.pushView(Play); Play.level=3;" enabled="false" skinClass="components.NewButtonSkin"/>
 		<s:Button id="lvl4" width="20%" height="50%" minWidth="140" minHeight="0"
-				  label="Level 4" click="navigator.pushView(Play); Play.level=4;" enabled="false"/>
+				  label="Level 4" click="navigator.pushView(Play); Play.level=4;" enabled="false" skinClass="components.NewButtonSkin"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 		<s:HGroup height="25%" width="100%" horizontalCenter="0" horizontalAlign="center" verticalAlign="middle">		
 		<s:Button id="lvl5" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 5"
-				  click="navigator.pushView(Play); Play.level=5;" enabled="false"/>
+				  click="navigator.pushView(Play); Play.level=5;" enabled="false" skinClass="components.NewButtonSkin"/>
 		<s:Button id="lvl6" width="20%" height="50%" minWidth="140" minHeight="0" label="Level 6"
-				  click="navigator.pushView(Play); Play.level=6;" enabled="false"/>
+				  click="navigator.pushView(Play); Play.level=6;" enabled="false" skinClass="components.NewButtonSkin"/>
 		</s:HGroup>
 		<mx:Spacer width="100%" height="4%"/>
 	</s:VGroup>
-	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()"/>
+	<s:Button left="10" bottom="10" label="Back" click="navigator.popView()" skinClass="components.NewButtonSkin"/>
 </s:View>
