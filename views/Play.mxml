@@ -368,7 +368,7 @@
 		<s:VGroup width="90%" height="100%" gap="0">
 			<mx:Spacer width="100%" height="5%"/>
 			<s:TextInput id="timerValue" width="100%" height="10%" enabled="false" fontSize="18"
-						 fontWeight="bold" textAlign="center"/>
+						 fontWeight="bold" textAlign="center" skinClass="components.TextBoxSkin"/>
 			<mx:Spacer width="100%" height="5%"/>
 			<s:Label width="100%" height="6%" color="#464646" fontWeight="bold"
 					 text="Distance&#xd;" textAlign="center" verticalAlign="middle"/>
@@ -380,7 +380,7 @@
 				<mx:Spacer width="4%" height="100%"/>
 				<s:VGroup width="48%" height="100%" gap="0">
 					<s:TextInput id="leftValue" width="100%" height="32%" enabled="false" fontSize="13"
-								 fontWeight="normal" text="{leftSlider.value}" textAlign="center"/>
+								 fontWeight="normal" text="{leftSlider.value}" textAlign="center" skinClass="components.TextBoxSkin"/>
 					<mx:Spacer width="100%" height="2%"/>
 					<s:Button id="leftPlus" width="100%" height="32%" label="+" autoRepeat="true" minHeight="0"
 							  buttonDown="leftSlider.value=leftSlider.value+1" skinClass="components.NewButtonSkin"/>
@@ -408,7 +408,7 @@
 			<s:HGroup width="100%" height="50%" gap="0">
 				<s:VGroup width="48%" height="100%" gap="0">
 					<s:TextArea id="rightValue" width="100%" height="32%" enabled="false" fontSize="13"
-								fontWeight="normal" text="{getAngleSlider(rightSlider.value)}" textAlign="center"/>
+								fontWeight="normal" text="{getAngleSlider(rightSlider.value)}" textAlign="center" skinClass="components.TextBoxSkin"/>
 					<mx:Spacer width="100%" height="2%"/>
 					<s:Button id="rightPlus" width="100%" height="32%" label="+" autoRepeat="true" minHeight="0"
 							  buttonDown="rightSlider.value=rightSlider.value+1" skinClass="components.NewButtonSkin"/>
